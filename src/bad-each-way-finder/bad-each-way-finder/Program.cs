@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using bad_each_way_finder.Areas.Identity.Data;
+using bad_each_way_finder.Settings;
+using System.Configuration;
+using bad_each_way_finder.Interfaces;
+using bad_each_way_finder.Services;
+
 namespace bad_each_way_finder
 {
     public class Program
@@ -21,6 +26,11 @@ namespace bad_each_way_finder
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddHttpClient<IApiService, ApiService>();
+
+            builder.Services.Configure<ApiSettings>(o =>
+                builder.Configuration.GetSection("ApiSettings").Bind(o));
 
             var app = builder.Build();
 
