@@ -17,9 +17,9 @@ namespace bad_each_way_finder.Services
             _httpClient.BaseAddress = new Uri(_options.Value.BaseUrl);
         }
 
-        public async Task<RacesAandPropositionsDto?> Get()
+        public async Task<RacesAndPropositionsDto?> Get()
         {
-            return await _httpClient.GetFromJsonAsync<RacesAandPropositionsDto>("/api/Proposition");
+            return await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto>("/api/Proposition");
         }
     }
 }

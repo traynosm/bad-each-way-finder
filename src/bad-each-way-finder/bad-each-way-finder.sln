@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bad-each-way-finder", "bad-each-way-finder\bad-each-way-finder.csproj", "{E584E3E9-DEF7-4FE8-9C81-36597B81C616}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bad-each-way-finder-domain", "bad-each-way-finder-domain\bad-each-way-finder-domain.csproj", "{BCB66033-BBE1-41DA-8774-63EA9636AF22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bad-each-way-finder-domain", "bad-each-way-finder-domain\bad-each-way-finder-domain.csproj", "{BCB66033-BBE1-41DA-8774-63EA9636AF22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

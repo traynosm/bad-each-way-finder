@@ -4,6 +4,6 @@ namespace bad_each_way_finder.Interfaces
 {
     public interface IApiService
     {
-        Task<RacesAandPropositionsDto> Get();
+        Task<RacesAndPropositionsDto> Get();
     }
 }

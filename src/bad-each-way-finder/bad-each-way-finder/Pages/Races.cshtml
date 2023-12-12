@@ -1,0 +1,85 @@
+﻿@page
+@model bad_each_way_finder.Pages.RacesModel
+@{
+    var selectedRace = Model.Races.First();  
+}
+@*racing selctor partial view*@
+<div class="m-3">
+@foreach(var meeting in Model.Races.GroupBy(e => e.EventName))
+{
+    <div>
+        <span class="me-3">@meeting.Key</span>
+    
+    @foreach(var race in meeting)
+    {
+        <span class="me-1">
+
+                <a class="btn btn-sm btn-light" href="/">@race.EventDateTime.ToString("HH:mm")</a>
+        </span>
+    }
+    </div>
+}
+</div>
+@*display race*@
+
+<div>
+    <div>
+        <h6>
+        @selectedRace.EventName @selectedRace.EventDateTime @selectedRace.SportsbookNumberOfPlaces 
+        1/@selectedRace.SportsbookPlaceFractionDenominator
+        </h6>
+    </div>
+    <table>
+        <tbody>
+            <tr>
+                <th>
+                    Runner Name
+                </th>
+                <th>
+                    Exhange Win
+                </th>
+                <th>
+                    Exchange Place
+                </th>
+                <th>
+                    Sportsbook Win
+                </th>
+                <th>
+                    Sportsbook Place
+                </th>
+                <th>
+                    Expected Value
+                </th>
+                <th>
+                    Add to tracker
+                </th>
+            </tr>
+            @foreach(var runner in selectedRace.Runners.OrderBy(r => r.WinRunnerOddsDecimal))
+            {
+                <tr>
+                    <td>
+                        @runner.RunnerName
+                    </td>
+                    <td>
+                        @runner.ExchangeWinPrice.ToString("0.00")
+                    </td>
+                    <td>
+                        @runner.ExchangePlacePrice.ToString("0.00")
+                    </td>
+                    <td>
+                        @runner.WinRunnerOddsDecimal.ToString("0.00")
+                    </td>
+                    <td>
+                        @runner.EachWayPlacePart.ToString("0.00")
+                    </td>
+                    <td>
+                        @runner.EachWayExpectedValue.ToString("0.00")
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

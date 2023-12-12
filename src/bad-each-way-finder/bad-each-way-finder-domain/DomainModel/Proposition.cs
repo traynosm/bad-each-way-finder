@@ -18,22 +18,7 @@
         public int SportsbookPlaceFractionDenominator { get; set; }
 
 
-        public Proposition()
-        {
+        public Proposition() { }
 
-        }
-        public Proposition(Race race, RunnerInfo runner) : base(runner)
-        {
-            EventId = race.EventId;
-            EventName = race.EventName;
-            EventDateTime = race.EventDateTime;
-            RecordedAt = DateTime.UtcNow;
-            ExchangeWinMarketId = race.ExchangeWinMarketId;
-            ExchangePlaceMarketId = race.ExchangePlaceMarketId;
-            SportsbookWinMarketId = race.SportsbookWinMarketId;
-            SportsbookEachwayAvailable = race.SportsbookEachwayAvailable;
-            SportsbookNumberOfPlaces = race.SportsbookNumberOfPlaces;
-            SportsbookPlaceFractionDenominator = race.SportsbookPlaceFractionDenominator;
-        }
     }
 }
