@@ -4,7 +4,8 @@
     var selectedRace = Model.Races.First();  
 }
 @*racing selctor partial view*@
-<div class="m-3">
+<div class="row border border-dark rounded bg-light p-3 mb-3">
+    <div class="col-12">
 @foreach(var meeting in Model.Races.GroupBy(e => e.EventName))
 {
     <div>
@@ -19,67 +20,74 @@
     }
     </div>
 }
+    </div>
 </div>
 @*display race*@
 
 <div>
-    <div>
-        <h6>
-        @selectedRace.EventName @selectedRace.EventDateTime @selectedRace.SportsbookNumberOfPlaces 
-        1/@selectedRace.SportsbookPlaceFractionDenominator
-        </h6>
+    <div class="row border border-dark rounded bg-light p-3 mb-3">
+        <div class="col-12">
+            <h6>
+                @selectedRace.EventName @selectedRace.EventDateTime.ToString("HH:mm") @selectedRace.SportsbookNumberOfPlaces 
+                1/@selectedRace.SportsbookPlaceFractionDenominator
+            </h6>
+        </div>
     </div>
-    <table>
-        <tbody>
-            <tr>
-                <th>
-                    Runner Name
-                </th>
-                <th>
-                    Exhange Win
-                </th>
-                <th>
-                    Exchange Place
-                </th>
-                <th>
-                    Sportsbook Win
-                </th>
-                <th>
-                    Sportsbook Place
-                </th>
-                <th>
-                    Expected Value
-                </th>
-                <th>
-                    Add to tracker
-                </th>
-            </tr>
+    <div class="row border border-dark rounded bg-secondary p-1 mb-1 text-white text-center">
+        <div class="col-3 text-start">
+            RunnerName
+        </div>
+        <div class="col-1">
+            Sbk Win
+        </div>
+        <div class="col-1">
+            Exc Win
+        </div>
+        <div class="col-1">
+            Exc Place
+        </div>
+
+        <div class="col-1">
+            Sbk Place
+        </div>
+        <div class="col-1">
+            EV
+        </div>
+    </div>
+
             @foreach(var runner in selectedRace.Runners.OrderBy(r => r.WinRunnerOddsDecimal))
             {
-                <tr>
-                    <td>
+                <div class="row border border-dark rounded bg-mintcream p-3 mb-1 text-center font-md">
+            <div class="col-3 text-start font-lg">
+                            @runner.RunnerOrder - 
                         @runner.RunnerName
-                    </td>
-                    <td>
-                        @runner.ExchangeWinPrice.ToString("0.00")
-                    </td>
-                    <td>
-                        @runner.ExchangePlacePrice.ToString("0.00")
-                    </td>
-                    <td>
-                        @runner.WinRunnerOddsDecimal.ToString("0.00")
-                    </td>
-                    <td>
-                        @runner.EachWayPlacePart.ToString("0.00")
-                    </td>
-                    <td>
-                        @runner.EachWayExpectedValue.ToString("0.00")
-                    </td>
-                    <td>
 
-                    </td>
-                </tr>
+                    </div>
+            <div class="col-1">
+                @runner.WinRunnerOddsDecimal.ToString("0.00")
+            </div>
+                    <div class="col-1">
+                        @runner.ExchangeWinPrice.ToString("0.00")
+                <p><small>€@runner.ExchangeWinSize.ToString("0.00")</small></p>
+                    </div>
+                    <div class="col-1">
+                        @runner.ExchangePlacePrice.ToString("0.00")
+                <p><small>€@runner.ExchangePlaceSize.ToString("0.00")</small></p>
+                    </div>
+                    <div class="col-1">
+                        @runner.EachWayPlacePart.ToString("0.00")
+                    </div>
+                    <div class="col-1">
+                @{
+                    var textblah = runner.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
+                }
+                <span class="@textblah">
+                @runner.EachWayExpectedValue.ToString("0.000%")
+                </span>
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
 </div>

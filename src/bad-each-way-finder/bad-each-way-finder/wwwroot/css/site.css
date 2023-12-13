@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&display=swap');
+
 html {
   font-size: 14px;
+
 }
 
 @media (min-width: 768px) {
@@ -18,5 +21,19 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Inter', sans-serif;
+}
+.bg-mintcream {
+    background-color: #F5FFFA;
+}
+
+.font-lg{
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.font-md{
+    font-size: 16px;
+    font-weight: bold;
 }

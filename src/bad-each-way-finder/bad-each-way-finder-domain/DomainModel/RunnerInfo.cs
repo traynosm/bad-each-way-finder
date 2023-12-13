@@ -5,8 +5,11 @@
         //exchange properties
         public long RunnerSelectionId { get; set; }
         public string RunnerName { get; set; }
+        public int RunnerOrder { get; set; }
         public double ExchangeWinPrice { get; set; }
+        public double ExchangeWinSize { get; set; }
         public double ExchangePlacePrice { get; set; }
+        public double ExchangePlaceSize { get; set; }
 
         //sportbook properties
         public double WinRunnerOddsDecimal { get; set; }
