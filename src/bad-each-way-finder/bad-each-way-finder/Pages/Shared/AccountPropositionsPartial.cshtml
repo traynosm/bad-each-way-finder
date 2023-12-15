@@ -1,0 +1,12 @@
+﻿@model bad_each_way_finder.Pages.Shared.PropositionsModel
+
+<div class="bg-green-bright ps-2 rounded"><span class="font-lg">My Propositions</span></div>
+<div class="row border border-dark rounded bg-light p-3 mb-5">
+    <div class="col-12">
+@foreach (var proposition in Model.AccountPropositions
+   .OrderByDescending(p => p.RecordedAt))
+{
+    @await Html.PartialAsync("SinglePropositionPartial", proposition)
+}
+    </div>
+</div>

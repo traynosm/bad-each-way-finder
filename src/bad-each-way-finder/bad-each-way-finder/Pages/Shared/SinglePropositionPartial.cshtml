@@ -1,0 +1,38 @@
+﻿@model bad_each_way_finder_domain.DomainModel.Proposition
+
+
+<div class="row border border-bottom border-dark p-1">
+    <div class="col-2">
+        @Model.RecordedAt
+    </div>
+    <div class="col-3">
+        @Model.EventName @Model.EventDateTime.ToString("HH:mm")
+    </div>
+    <div class="col-2">
+        @Model.RunnerName
+    </div>
+    <div class="col-1">
+        @Model.WinRunnerOddsDecimal.ToString("0.00")
+    </div>
+    <div class="col-1">
+        @Model.ExchangeWinPrice.ToString("0.00")
+    </div>
+    <div class="col-1">
+        @Model.ExchangePlacePrice.ToString("0.00")
+    </div>
+    <div class="col-1">
+        @{
+            var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
+        }
+        <span class="@textEachWayEv">@Model.EachWayExpectedValue.ToString("0.000%")</span>
+    </div>
+    <div class="col-1">
+        <form id="proposition-form" method="post">
+            <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
+            <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal" />
+            <input type="hidden" id="event-id" name="event-id" value="@Model.EventId" />
+            <input type="submit" class="btn btn-sm btn-primary proposition-submit" />
+        </form>
+    </div>
+</div>
+

@@ -8,7 +8,6 @@ namespace bad_each_way_finder.Pages
 {
     public class RacesModel : PageModel
     {
-        public List<Proposition> Propositions { get; set; }
         public List<Race> Races { get; set; }
         public Race SelectedRace { get; set; }
 
@@ -55,8 +54,8 @@ namespace bad_each_way_finder.Pages
         public async Task GetDto()
         {
             var Dto = await _apiService.Get();
-            Propositions = Dto.Propositions;
             Races = Dto.Races;
+
         }
     }
 }

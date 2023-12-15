@@ -5,53 +5,26 @@
         <span id="last-updated-time" class="text-black border border-dark rounded-1 bg-mintcream p-1">Last Updated - @DateTime.Now.ToString("HH:mm:ss")</span>
     </div>
 
-    <div class="row border border-dark rounded bg-light p-3 mb-5 mt-5">
-        <div class="col-12">
+    <div class="bg-green-bright ps-2 rounded"><span class="font-lg">Live Propositions</span></div>
 
-            @foreach (var meeting in Model.Propositions.GroupBy(e => e.EventName))
+    <div id="live-propositions">
+        @if (Model.Propositions.Any())
             {
-                <div class="row mb-3">
+            @await Html.PartialAsync("LivePropositionsPartial", Model)
+        }
+    </div>
 
-                    <div class="col-12">
-                        <span class="me-13 font-lg">@meeting.Key</span>
-                    </div>
-
-                    <div class="col-12">
-                        @foreach (var race in meeting.GroupBy(r => r.EventDateTime))
-                        {
-                            <div class="me-1 mb-2">
-                                <div class="font-md" style="width: 60px;">@race.Key.ToString("HH:mm")</div>
-
-                                @foreach (var runner in race)
-                                {
-                                    <div class="row">
-                                        <div class="col-3">
-                                            @runner.RunnerName
-                                        </div>
-                                        <div class="col-1">
-                                            @runner.WinRunnerOddsDecimal.ToString("0.00")
-                                        </div>
-                                        <div class="col-1">
-                                            @runner.ExchangeWinPrice.ToString("0.00")
-                                        </div>
-                                        <div class="col-1">
-                                            @runner.ExchangePlacePrice.ToString("0.00")
-                                        </div>
-                                        <div class="col-1">
-                                            @{
-                                                var textEachWayEv = runner.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
-                                            }
-                                            <span class="@textEachWayEv">@runner.EachWayExpectedValue.ToString("0.000%")</span>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                </div>
-
-            }
-        </div>
+    <div id="account-propositions">
+        @if (Model.AccountPropositions.Any())
+        {
+            @await Html.PartialAsync("AccountPropositionsPartial", Model)
+        }
+    </div>
+    <div id="saved-propositions">
+        @if (Model.SavedPropositions.Any())
+        {
+            @await Html.PartialAsync("SavedPropositionsPartial", Model)
+        }
     </div>
 </div>
 

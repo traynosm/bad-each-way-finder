@@ -1,0 +1,23 @@
+﻿@model bad_each_way_finder_domain.DomainModel.Proposition
+
+<div class="row">
+    <div class="col-3">
+        @Model.RunnerName
+    </div>
+    <div class="col-1">
+        @Model.WinRunnerOddsDecimal.ToString("0.00")
+    </div>
+    <div class="col-1">
+        @Model.ExchangeWinPrice.ToString("0.00")
+    </div>
+    <div class="col-1">
+        @Model.ExchangePlacePrice.ToString("0.00")
+    </div>
+    <div class="col-1">
+        @{
+            var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
+        }
+        <span class="@textEachWayEv">@Model.EachWayExpectedValue.ToString("0.000%")</span>
+    </div>
+</div>
+

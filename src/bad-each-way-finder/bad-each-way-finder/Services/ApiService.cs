@@ -1,7 +1,10 @@
 ﻿using bad_each_way_finder.Interfaces;
 using bad_each_way_finder.Settings;
+using bad_each_way_finder_domain.DomainModel;
 using bad_each_way_finder_domain.Dto;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace bad_each_way_finder.Services
 {
@@ -19,7 +22,32 @@ namespace bad_each_way_finder.Services
 
         public async Task<RacesAndPropositionsDto?> Get()
         {
-            return await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto>("/api/Proposition");
+            return await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto?>("/api/Proposition");
+        }
+
+        public async Task<List<Proposition>> PostSavedPropostionDto(SavedPropositionDto savedPropositionDto)
+        {
+            var json = JsonConvert.SerializeObject(savedPropositionDto);
+
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync($"/api/Account/PostSaveProposition", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("broken");
+            }
+
+            var savedPropositionsJson = await response.Content.ReadAsStringAsync();
+
+            var savedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(savedPropositionsJson);
+
+            return savedPropositions!;
+        }
+
+        public async Task<List<Proposition>> GetAccountPropositions(string userName)
+        {
+            return await _httpClient.GetFromJsonAsync<List<Proposition>?>($"/api/Account/GetAccountPropositions/{userName}");
         }
     }
 }

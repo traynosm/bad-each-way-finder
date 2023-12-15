@@ -59,4 +59,24 @@
             }
         });
     }
+
+    $(".proposition-submit").on('click', function (e) {
+        e.preventDefault();
+        var data = $(this).parents('form:first').serialize();
+        console.log(data);
+        formSubmitted(data);
+    });
+
+    function formSubmitted(data) {
+        $.post({
+            url:"?handler=AddAccountProposition",
+            data: data,
+            success: function (result) {
+                console.log(result);
+                $("#account-propositions").html('');
+                $("#account-propositions").html(result);
+            }
+        });
+    };
+
 });
