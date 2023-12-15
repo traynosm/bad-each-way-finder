@@ -16,6 +16,9 @@
         public bool SportsbookEachwayAvailable { get; set; }
         public int SportsbookNumberOfPlaces { get; set; }
         public int SportsbookPlaceFractionDenominator { get; set; }
+        public double Rule4Deduction { get; set; }
+        public double WinBsp { get; set; }
+        public double PlaceBsp { get; set; }
 
 
         public Proposition() { }

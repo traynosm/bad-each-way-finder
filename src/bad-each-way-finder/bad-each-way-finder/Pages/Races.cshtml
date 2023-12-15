@@ -1,93 +1,10 @@
 ﻿@page
 @model bad_each_way_finder.Pages.RacesModel
-@{
-    var selectedRace = Model.Races.First();  
-}
-@*racing selctor partial view*@
-<div class="row border border-dark rounded bg-light p-3 mb-3">
-    <div class="col-12">
-@foreach(var meeting in Model.Races.GroupBy(e => e.EventName))
-{
-    <div>
-        <span class="me-3">@meeting.Key</span>
-    
-    @foreach(var race in meeting)
-    {
-        <span class="me-1">
 
-                <a class="btn btn-sm btn-light" href="/">@race.EventDateTime.ToString("HH:mm")</a>
-        </span>
-    }
-    </div>
-}
-    </div>
-</div>
+@*racing selctor partial view*@
+@await Html.PartialAsync("RacingSelectorPartial", Model)
+
+
 @*display race*@
 
-<div>
-    <div class="row border border-dark rounded bg-light p-3 mb-3">
-        <div class="col-12">
-            <h6>
-                @selectedRace.EventName @selectedRace.EventDateTime.ToString("HH:mm") @selectedRace.SportsbookNumberOfPlaces 
-                1/@selectedRace.SportsbookPlaceFractionDenominator
-            </h6>
-        </div>
-    </div>
-    <div class="row border border-dark rounded bg-secondary p-1 mb-1 text-white text-center">
-        <div class="col-3 text-start">
-            RunnerName
-        </div>
-        <div class="col-1">
-            Sbk Win
-        </div>
-        <div class="col-1">
-            Exc Win
-        </div>
-        <div class="col-1">
-            Exc Place
-        </div>
-
-        <div class="col-1">
-            Sbk Place
-        </div>
-        <div class="col-1">
-            EV
-        </div>
-    </div>
-
-            @foreach(var runner in selectedRace.Runners.OrderBy(r => r.WinRunnerOddsDecimal))
-            {
-                <div class="row border border-dark rounded bg-mintcream p-3 mb-1 text-center font-md">
-            <div class="col-3 text-start font-lg">
-                            @runner.RunnerOrder - 
-                        @runner.RunnerName
-
-                    </div>
-            <div class="col-1">
-                @runner.WinRunnerOddsDecimal.ToString("0.00")
-            </div>
-                    <div class="col-1">
-                        @runner.ExchangeWinPrice.ToString("0.00")
-                <p><small>€@runner.ExchangeWinSize.ToString("0.00")</small></p>
-                    </div>
-                    <div class="col-1">
-                        @runner.ExchangePlacePrice.ToString("0.00")
-                <p><small>€@runner.ExchangePlaceSize.ToString("0.00")</small></p>
-                    </div>
-                    <div class="col-1">
-                        @runner.EachWayPlacePart.ToString("0.00")
-                    </div>
-                    <div class="col-1">
-                @{
-                    var textblah = runner.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
-                }
-                <span class="@textblah">
-                @runner.EachWayExpectedValue.ToString("0.000%")
-                </span>
-                    </div>
-                    <div class="col-1">
-
-                    </div>
-                </div>
-            }
-</div>
+@await Html.PartialAsync("SelectedRacePartial", Model)

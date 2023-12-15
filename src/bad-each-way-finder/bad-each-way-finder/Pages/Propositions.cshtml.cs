@@ -1,20 +1,17 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder_domain.DomainModel;
-using bad_each_way_finder_domain.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace bad_each_way_finder.Pages
+namespace bad_each_way_finder.Pages.Shared
 {
-    public class RacesModel : PageModel
+    public class PropositionsModel : PageModel
     {
         public List<Proposition> Propositions { get; set; }
-        public List<Race> Races { get; set; }
-        public Race SelectedRace { get; set; }
 
         private readonly IApiService _apiService;
 
-        public RacesModel(IApiService apiService)
+        public PropositionsModel(IApiService apiService)
         {
             _apiService = apiService;
         }
@@ -22,21 +19,11 @@ namespace bad_each_way_finder.Pages
         {
             await GetDto();
         }
-        public async Task<PartialViewResult> OnGetSelectedRace(string raceMeetingTime)
+        public async Task<PartialViewResult> OnGetPropositions()
         {
             await GetDto();
-            var splitVariable = raceMeetingTime.Split(" ~ ");
-            var races = Races.Where(p => p.EventName == splitVariable[0]);
-            var selectedRace = races.FirstOrDefault(p => p.EventDateTime.ToString("HH:mm") == splitVariable[1]);
-            if (selectedRace == null)
-            {
-                SelectedRace = new Race();
-            }
-            else
-            {
-                SelectedRace = selectedRace;
-            }
-            return PartialView("SelectedRacePartial", this);
+
+            return PartialView("PropositionsPartial", this);
         }
 
         [NonAction]
@@ -56,7 +43,6 @@ namespace bad_each_way_finder.Pages
         {
             var Dto = await _apiService.Get();
             Propositions = Dto.Propositions;
-            Races = Dto.Races;
         }
     }
 }

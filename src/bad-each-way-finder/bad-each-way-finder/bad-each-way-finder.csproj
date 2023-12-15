@@ -22,4 +22,8 @@
     <ProjectReference Include="..\bad-each-way-finder-domain\bad-each-way-finder-domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Partials\" />
+  </ItemGroup>
+
 </Project>
