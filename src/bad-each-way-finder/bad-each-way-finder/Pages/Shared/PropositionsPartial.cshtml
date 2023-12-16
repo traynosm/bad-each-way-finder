@@ -17,12 +17,14 @@
     <div id="account-propositions">
         @if (Model.AccountPropositions.Any())
         {
+            ViewData["PropositionType"] = "Account";
             @await Html.PartialAsync("AccountPropositionsPartial", Model)
         }
     </div>
     <div id="saved-propositions">
         @if (Model.SavedPropositions.Any())
         {
+            ViewData["PropositionType"] = "Saved";
             @await Html.PartialAsync("SavedPropositionsPartial", Model)
         }
     </div>

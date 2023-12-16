@@ -1,5 +1,7 @@
 ﻿@model bad_each_way_finder_domain.DomainModel.Proposition
-
+@{
+    var propositionType = ViewData["PropositionType"];
+}
 
 <div class="row border border-bottom border-dark p-1">
     <div class="col-2">
@@ -29,9 +31,16 @@
     <div class="col-1">
         <form id="proposition-form" method="post">
             <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
-            <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal" />
-            <input type="hidden" id="event-id" name="event-id" value="@Model.EventId" />
-            <input type="submit" class="btn btn-sm btn-primary proposition-submit" />
+            <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal"/>
+            <input type="hidden" id="event-id" name="event-id" value="@Model.EventId"/>
+            @if(propositionType == "Saved")
+            {
+                <button class="btn btn-sm btn-primary proposition-submit">Save</button>
+            }
+            else
+            {
+                <button class="btn btn-sm btn-danger proposition-remove">Remove</button>
+            }
         </form>
     </div>
 </div>

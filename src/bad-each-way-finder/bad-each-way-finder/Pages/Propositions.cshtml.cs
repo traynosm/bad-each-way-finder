@@ -57,6 +57,31 @@ namespace bad_each_way_finder.Pages.Shared
             return PartialView("AccountPropositionsPartial", this);
         }
 
+        public async Task<PartialViewResult> OnPostRemoveAccountProposition()
+        {
+            var form = HttpContext.Request.Form;
+            var runnerName = form["runner-name"].ToString();
+            var winOdds = double.Parse(form["win-odds"].ToString());
+            var eventId = form["event-id"].ToString();
+            var user = HttpContext.User.Identity!.Name;
+
+            var Dto = new SavedPropositionDto()
+            {
+                RunnerName = runnerName,
+                WinRunnerOddsDecimal = winOdds,
+                EventId = eventId,
+                IdentityUserName = user!,
+            };
+
+            var accountPropositions = await _apiService.RemoveSavedPropostionDto(Dto);
+
+            AccountPropositions = accountPropositions;
+
+            ViewData["PropositionType"] = "Account";
+
+            return PartialView("AccountPropositionsPartial", this);
+        }
+
         [NonAction]
         public virtual PartialViewResult PartialView(string viewName, object model)
         {

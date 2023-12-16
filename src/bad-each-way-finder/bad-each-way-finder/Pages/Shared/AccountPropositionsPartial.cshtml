@@ -10,3 +10,25 @@
 }
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+    $(".proposition-remove").on('click', function (e) {
+        e.preventDefault();
+        var data = $(this).parents('form:first').serialize();
+        propositionRemoved(data);
+    });
+
+    function propositionRemoved(data) {
+        $.post({
+            url: "?handler=RemoveAccountProposition",
+            data: data,
+            success: function (result) {
+                console.log(result);
+                $("#account-propositions").html('');
+                $("#account-propositions").html(result);
+            }
+        });
+    };
+    });
+</script>

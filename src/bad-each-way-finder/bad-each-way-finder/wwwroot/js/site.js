@@ -63,13 +63,12 @@
     $(".proposition-submit").on('click', function (e) {
         e.preventDefault();
         var data = $(this).parents('form:first').serialize();
-        console.log(data);
-        formSubmitted(data);
+        propositionAdded(data);
     });
 
-    function formSubmitted(data) {
+    function propositionAdded(data) {
         $.post({
-            url:"?handler=AddAccountProposition",
+            url: "?handler=AddAccountProposition",
             data: data,
             success: function (result) {
                 console.log(result);
@@ -79,4 +78,21 @@
         });
     };
 
+    $(".proposition-remove").on('click', function (e) {
+        e.preventDefault();
+        var data = $(this).parents('form:first').serialize();
+        propositionRemoved(data);
+    });
+
+    function propositionRemoved(data) {
+        $.post({
+            url: "?handler=RemoveAccountProposition",
+            data: data,
+            success: function (result) {
+                console.log(result);
+                $("#account-propositions").html('');
+                $("#account-propositions").html(result);
+            }
+        });
+    };
 });

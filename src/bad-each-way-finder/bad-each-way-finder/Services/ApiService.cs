@@ -45,6 +45,26 @@ namespace bad_each_way_finder.Services
             return savedPropositions!;
         }
 
+        public async Task<List<Proposition>> RemoveSavedPropostionDto(SavedPropositionDto savedPropositionDto)
+        {
+            var json = JsonConvert.SerializeObject(savedPropositionDto);
+
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync($"/api/Account/RemoveAccountProposition", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("broken");
+            }
+
+            var savedPropositionsJson = await response.Content.ReadAsStringAsync();
+
+            var savedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(savedPropositionsJson);
+
+            return savedPropositions!;
+        }
+
         public async Task<List<Proposition>> GetAccountPropositions(string userName)
         {
             return await _httpClient.GetFromJsonAsync<List<Proposition>?>($"/api/Account/GetAccountPropositions/{userName}");
