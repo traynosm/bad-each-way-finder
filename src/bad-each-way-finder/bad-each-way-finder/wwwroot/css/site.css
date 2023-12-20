@@ -66,6 +66,9 @@ footer {
 .bg-lighter-blue {
     background-color: #e6faff;
 }
+.bg-sub-header {
+    background-color: #5e678c;
+}
 
 .font-sm {
     font-size: 12px;

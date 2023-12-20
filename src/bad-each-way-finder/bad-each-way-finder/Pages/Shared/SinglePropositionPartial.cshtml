@@ -3,7 +3,7 @@
     var propositionType = ViewData["PropositionType"];
 }
 
-<div class="row border border-bottom border-dark p-1 font-sm bg-dark-blue text-light mb-1">
+<div class="row border border-bottom border-dark rounded p-2 font-sm bg-dark-blue text-light mb-1">
     <div class="col-1">
         @Model.RecordedAt
     </div>
@@ -34,7 +34,7 @@
         <span class="@latestTextEachWayEv font-md">&nbsp;@Model.LatestEachWayExpectedValue.ToString("0.000%")</span>
     </div>
 
-    <div class="col-1">
+    <div class="col-1 ps-5">
         <form id="proposition-form" method="post">
             <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
             <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal"/>

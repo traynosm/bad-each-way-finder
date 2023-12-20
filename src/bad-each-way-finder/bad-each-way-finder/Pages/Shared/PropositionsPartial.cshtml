@@ -1,11 +1,11 @@
 ﻿@model bad_each_way_finder.Pages.Shared.PropositionsModel
 
 <div id="propositions">
-    <div class="p-1 m-1">
-        <span id="last-updated-time" class="text-black border border-dark rounded-1 bg-mintcream p-1">Last Updated - @DateTime.Now.ToString("HH:mm:ss")</span>
+    <div class="row mt-2 mb-2 w-25 text-center">
+         <span id="last-updated-time" class="text-black border border-dark rounded-1 bg-mintcream p-1">Last Updated - @DateTime.Now.ToString("HH:mm:ss")</span>
     </div>
 
-    <div class="row bg-green-bright p-3 rounded border border-bottom"><span class="font-lg">Live Propositions</span></div>
+    <div class="row bg-green-bright p-3 rounded border border-dark mb-1"><span class="font-lg">Live Propositions</span></div>
 
     <div id="live-propositions">
         @if (Model.Propositions.Any())
