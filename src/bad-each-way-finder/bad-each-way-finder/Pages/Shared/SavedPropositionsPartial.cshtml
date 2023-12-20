@@ -1,8 +1,19 @@
 ﻿@model bad_each_way_finder.Pages.Shared.PropositionsModel
 
 
-<div class="bg-green-bright ps-2 rounded"><span class="font-lg">Saved Propositions</span></div>
-<div class="row border border-dark rounded bg-light p-3 mb-5">
+<div class="row bg-green-bright p-3 rounded border border-bottom"><span class="font-lg">Saved Propositions</span></div>
+<div class="row font-md bg-green-bright p-1 rounded mb-1">
+    <div class="col-1">Saved At</div>
+    <div class="col-1">Event</div>
+    <div class="col-2">Runner Name</div>
+    <div class="col-1">Odds</div>
+    <div class="col-2">Saved At Prices</div>
+    <div class="col-2">Latest Prices</div>
+    <div class="col-1">Save/Remove</div>
+
+
+</div>
+<div class="row border border-dark rounded p-3 mb-5 bg-light-blue">
     <div class="col-12">
         @foreach (var proposition in Model.SavedPropositions
         .OrderByDescending(p => p.RecordedAt))

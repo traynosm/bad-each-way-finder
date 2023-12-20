@@ -5,7 +5,7 @@
         <span id="last-updated-time" class="text-black border border-dark rounded-1 bg-mintcream p-1">Last Updated - @DateTime.Now.ToString("HH:mm:ss")</span>
     </div>
 
-    <div class="bg-green-bright ps-2 rounded"><span class="font-lg">Live Propositions</span></div>
+    <div class="row bg-green-bright p-3 rounded border border-bottom"><span class="font-lg">Live Propositions</span></div>
 
     <div id="live-propositions">
         @if (Model.Propositions.Any())

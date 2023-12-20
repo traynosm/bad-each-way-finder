@@ -3,31 +3,37 @@
     var propositionType = ViewData["PropositionType"];
 }
 
-<div class="row border border-bottom border-dark p-1">
-    <div class="col-2">
+<div class="row border border-bottom border-dark p-1 font-sm bg-dark-blue text-light mb-1">
+    <div class="col-1">
         @Model.RecordedAt
     </div>
-    <div class="col-3">
+    <div class="col-1">
         @Model.EventName @Model.EventDateTime.ToString("HH:mm")
     </div>
-    <div class="col-2">
+    <div class="col-2 font-md">
         @Model.RunnerName
     </div>
     <div class="col-1">
-        @Model.WinRunnerOddsDecimal.ToString("0.00")
+        <span class="text-cyan font-md">@Model.WinRunnerOddsNumerator/@Model.WinRunnerOddsDenominator</span>
     </div>
-    <div class="col-1">
-        @Model.ExchangeWinPrice.ToString("0.00")
+    <div class="col-2">
+        [<span class="text-pink"> @Model.ExchangeWinPrice.ToString("0.00") : </span>
+        <span class="text-pink">@Model.ExchangePlacePrice.ToString("0.00") </span>]
+            @{
+                var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-lime" : "text-danger";
+            }
+        <span class="@textEachWayEv font-md">&nbsp;@Model.EachWayExpectedValue.ToString("0.000%")</span>
     </div>
-    <div class="col-1">
-        @Model.ExchangePlacePrice.ToString("0.00")
-    </div>
-    <div class="col-1">
+
+    <div class="col-2">
+        [<span class="text-pink"> @Model.LatestWinPrice.ToString("0.00") : </span>
+        <span class="text-pink">@Model.LatestPlacePrice.ToString("0.00") </span>]
         @{
-            var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
+            var latestTextEachWayEv = Model.LatestEachWayExpectedValue > 0 ? "text-lime" : "text-danger";
         }
-        <span class="@textEachWayEv">@Model.EachWayExpectedValue.ToString("0.000%")</span>
+        <span class="@latestTextEachWayEv font-md">&nbsp;@Model.LatestEachWayExpectedValue.ToString("0.000%")</span>
     </div>
+
     <div class="col-1">
         <form id="proposition-form" method="post">
             <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
@@ -35,11 +41,11 @@
             <input type="hidden" id="event-id" name="event-id" value="@Model.EventId"/>
             @if(propositionType == "Saved")
             {
-                <button class="btn btn-sm btn-primary proposition-submit">Save</button>
+                <button class="btn btn-sm btn-primary proposition-submit"><i class="fa-regular fa-floppy-disk"></i></button>
             }
             else
             {
-                <button class="btn btn-sm btn-danger proposition-remove">Remove</button>
+                <button class="btn btn-sm btn-danger proposition-remove"><i class="fa-solid fa-trash fa-fw"></i></button>
             }
         </form>
     </div>

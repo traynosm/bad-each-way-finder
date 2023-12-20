@@ -54,15 +54,39 @@ footer {
 .bg-green-bright {
     background-color: #80ced6;
 }
+.bg-dark-blue {
+    background-color: #204060;
+}
+.bg-light-blue {
+    background-color: #d9e6f2;
+}
+.bg-purple {
+    background-color: #4d4dff;
+}
+.bg-lighter-blue {
+    background-color: #e6faff;
+}
 
+.font-sm {
+    font-size: 12px;
+    font-weight: normal;
+}
 .font-lg{
     font-size: 20px;
     font-weight: bolder;
 }
-
 .font-md{
     font-size: 16px;
     font-weight: bold;
+}
+.text-pink {
+    color: pink;
+}
+.text-lime {
+    color: lime;
+}
+.text-cyan {
+    color: #00ffff;
 }
 
 /*https://www.w3schools.com/howto/howto_css_loader.asp*/
