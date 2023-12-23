@@ -5,7 +5,6 @@ namespace bad_each_way_finder_domain.DomainModel
 {
     public class Race
     {
-        //sportsbook props
         public string SportsbookWinMarketId { get; set; }
         public bool SportsbookEachwayAvailable { get; set; }
         public int SportsbookNumberOfPlaces { get; set; }

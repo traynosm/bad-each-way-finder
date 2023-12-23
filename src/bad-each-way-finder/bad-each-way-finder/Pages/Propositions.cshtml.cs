@@ -10,14 +10,15 @@ namespace bad_each_way_finder.Pages.Shared
     {
         private readonly IApiService _apiService;
 
-        public List<Proposition> Propositions { get; set; }
+        public List<Proposition> LivePropositions { get; set; }
         public List<Proposition> AccountPropositions { get; set; }
         public List<Proposition> SavedPropositions { get; set; }
 
         public PropositionsModel(IApiService apiService)
         {
             _apiService = apiService;
-            Propositions = new List<Proposition>();
+
+            LivePropositions = new List<Proposition>();
             AccountPropositions = new List<Proposition>();
             SavedPropositions = new List<Proposition>();
         }
@@ -97,10 +98,12 @@ namespace bad_each_way_finder.Pages.Shared
 
         public async Task GetDto(string userName)
         {
-            var Dto = await _apiService.Get();
-            Propositions = Dto!.Propositions;
-            SavedPropositions = Dto!.SavedPropositions;
-            AccountPropositions = await _apiService.GetAccountPropositions(userName);
+            var Dto = await _apiService.GetRacesAndPropositionsDto();
+            LivePropositions = Dto!.LivePropositions;
+            SavedPropositions = Dto!.SavedPropositions; 
+
+            var accountPropositions = await _apiService.GetAccountPropositions(userName);
+            AccountPropositions = accountPropositions ?? new List<Proposition>();
         }
 
     }

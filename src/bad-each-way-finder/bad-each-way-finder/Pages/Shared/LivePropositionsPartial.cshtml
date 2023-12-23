@@ -2,7 +2,7 @@
 
 <div class="row border border-dark rounded bg-light-blue p-3 mb-5">
     <div class="col-12">
-        @foreach (var meeting in Model.Propositions.GroupBy(e => e.EventName))
+        @foreach (var meeting in Model.LivePropositions.GroupBy(e => e.EventName))
         {
             <div class="row mb-3 bg-dark-blue text-light p-1 rounded">
 
@@ -13,11 +13,11 @@
                 <div class="col-12">
                     @foreach (var race in meeting.GroupBy(r => r.EventDateTime))
                     {
-                        <div class="me-1 mb-2 bg-lighter-blue text-dark p-2 rounded">
-                            <div class="font-md" style="width: 100px;">
-                                <span class="me-1">@race.Key.ToString("HH:mm")</span>
-                                <span class="text-success me-1">@race.First().SportsbookNumberOfPlaces</span>
-                                <span class="text-success">1/@race.First().SportsbookPlaceFractionDenominator</span>
+                        <div class="me-1 mb-2 bg-secondary text-dark p-2 border border-dark rounded">
+                            <div style="width: 200px;">
+                                <span class="font-md ms-1 me-1">@race.Key.ToString("HH:mm")</span>
+                                <span class="text-black me-1">@race.First().SportsbookNumberOfPlaces</span>
+                                <span class="text-black">1/@race.First().SportsbookPlaceFractionDenominator</span>
                              </div>
 
                             @foreach (var proposition in race)

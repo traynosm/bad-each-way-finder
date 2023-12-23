@@ -42,6 +42,7 @@
         public double EachWayExpectedValue { get; set; }
         public string RunnerStatus { get; set; }
 
+        //latest properties
         public double LatestWinPrice { get; set; }
         public double LatestPlacePrice { get; set; }
         public double LatestWinExpectedValue { get; set; }

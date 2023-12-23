@@ -20,9 +20,38 @@ namespace bad_each_way_finder.Services
             _httpClient.BaseAddress = new Uri(_options.Value.BaseUrl);
         }
 
-        public async Task<RacesAndPropositionsDto?> Get()
+        public async Task<RacesAndPropositionsDto?> GetRacesAndPropositionsDto()
         {
-            return await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto?>("/api/Proposition");
+            try
+            {
+               var result = await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto?>(
+                   "/api/Proposition");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                throw;
+            }
+        }
+
+        public async Task<List<Proposition>?> GetAccountPropositions(string userName)
+        {
+            try
+            {
+                var result = await _httpClient.GetFromJsonAsync<List<Proposition>?>(
+                    $"/api/Account/GetAccountPropositions/{userName}");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                throw;
+            }
         }
 
         public async Task<List<Proposition>> PostSavedPropostionDto(SavedPropositionDto savedPropositionDto)
@@ -63,11 +92,6 @@ namespace bad_each_way_finder.Services
             var savedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(savedPropositionsJson);
 
             return savedPropositions!;
-        }
-
-        public async Task<List<Proposition>> GetAccountPropositions(string userName)
-        {
-            return await _httpClient.GetFromJsonAsync<List<Proposition>?>($"/api/Account/GetAccountPropositions/{userName}");
         }
     }
 }

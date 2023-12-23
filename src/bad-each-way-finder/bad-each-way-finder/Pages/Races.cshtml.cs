@@ -53,9 +53,9 @@ namespace bad_each_way_finder.Pages
 
         public async Task GetDto()
         {
-            var Dto = await _apiService.Get();
-            Races = Dto.Races;
+            var Dto = await _apiService.GetRacesAndPropositionsDto();
 
+            Races = Dto?.Races ?? new List<Race>();
         }
     }
 }

@@ -69,6 +69,12 @@ footer {
 .bg-sub-header {
     background-color: #5e678c;
 }
+.bg-light-pink {
+    background-color: #ffb6c1;
+}
+.bg-dark-orange {
+    background-color: #ff8c00;
+}
 
 .font-sm {
     font-size: 12px;
@@ -90,6 +96,12 @@ footer {
 }
 .text-cyan {
     color: #00ffff;
+}
+.text-hot-pink {
+    color: #ff69b4;
+}
+.text-dark-magenta {
+    color: #8b008b;
 }
 
 /*https://www.w3schools.com/howto/howto_css_loader.asp*/

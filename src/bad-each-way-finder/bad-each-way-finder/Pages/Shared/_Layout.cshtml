@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/bad_each_way_finder.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/mvc-grid.css">
+
 
     <script src="https://kit.fontawesome.com/177a1325c3.js" crossorigin="anonymous"></script>
 
@@ -31,6 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Propositions">Propositions</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/History">History</a>
+                        </li>
 
 
                     </ul>
@@ -54,6 +59,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/mvc-grid.js"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,0 +1,40 @@
+﻿@using NonFactors.Mvc.Grid;
+
+@model IEnumerable<bad_each_way_finder_domain.DomainModel.Proposition>
+<div class="bg-light">
+@(
+    Html
+    .Grid(Model)
+    .Build(columns =>
+        {
+            columns.Add(m => m.RecordedAt).Titled("Recorded At")
+            .Formatted("{0:dd-MM-yyyy HH:mm}")
+            .Sortable(true)
+            .Filterable(GridFilterType.Multi);
+
+            columns.Add(m => m.EventName).Titled("Event Name")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.EventDateTime).Titled("Event")
+            .Formatted("{0:dd-MM-yyyy HH:mm}")
+            .Sortable(true)
+            .Filterable(GridFilterType.Multi);
+
+            columns.Add(m => m.RunnerName).Titled("Runner Name")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.WinRunnerOddsDecimal.ToString("0.00")).Titled("Odds")
+            .Sortable(true)
+            .Filterable(true);
+        })
+        .Pageable(pager =>
+        {
+            pager.PagesToDisplay = 5;
+            pager.RowsPerPage = 10;
+        })
+        .Filterable()
+        .Sortable()
+        .Empty("No Data Found"))
+</div>
