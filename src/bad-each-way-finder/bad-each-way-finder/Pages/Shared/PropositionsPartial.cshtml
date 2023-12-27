@@ -22,10 +22,10 @@
         }
     </div>
     <div id="saved-propositions">
-        @if (Model.SavedPropositions.Any())
+        @if (Model.RaisedPropositions.Any())
         {
-            ViewData["PropositionType"] = "Saved";
-            @await Html.PartialAsync("SavedPropositionsPartial", Model)
+            ViewData["PropositionType"] = "Raised";
+            @await Html.PartialAsync("RaisedPropositionsPartial", Model)
         }
     </div>
 </div>

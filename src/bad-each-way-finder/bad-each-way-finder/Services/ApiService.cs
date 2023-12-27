@@ -54,29 +54,29 @@ namespace bad_each_way_finder.Services
             }
         }
 
-        public async Task<List<Proposition>> PostSavedPropostionDto(SavedPropositionDto savedPropositionDto)
+        public async Task<List<Proposition>> PostRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto)
         {
-            var json = JsonConvert.SerializeObject(savedPropositionDto);
+            var json = JsonConvert.SerializeObject(raisedPropositionDto);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"/api/Account/PostSaveProposition", content);
+            var response = await _httpClient.PostAsync($"/api/Account/PostRaisedProposition", content);
 
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("broken");
             }
 
-            var savedPropositionsJson = await response.Content.ReadAsStringAsync();
+            var raisedPropositionsJson = await response.Content.ReadAsStringAsync();
 
-            var savedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(savedPropositionsJson);
+            var raisedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(raisedPropositionsJson);
 
-            return savedPropositions!;
+            return raisedPropositions!;
         }
 
-        public async Task<List<Proposition>> RemoveSavedPropostionDto(SavedPropositionDto savedPropositionDto)
+        public async Task<List<Proposition>> RemoveRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto)
         {
-            var json = JsonConvert.SerializeObject(savedPropositionDto);
+            var json = JsonConvert.SerializeObject(raisedPropositionDto);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -87,11 +87,11 @@ namespace bad_each_way_finder.Services
                 throw new Exception("broken");
             }
 
-            var savedPropositionsJson = await response.Content.ReadAsStringAsync();
+            var raisedPropositionsJson = await response.Content.ReadAsStringAsync();
 
-            var savedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(savedPropositionsJson);
+            var raisedPropositions = JsonConvert.DeserializeObject<List<Proposition>>(raisedPropositionsJson);
 
-            return savedPropositions!;
+            return raisedPropositions!;
         }
     }
 }

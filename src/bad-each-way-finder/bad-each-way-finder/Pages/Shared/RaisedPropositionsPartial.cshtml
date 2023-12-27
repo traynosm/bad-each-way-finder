@@ -1,7 +1,7 @@
 ﻿@model bad_each_way_finder.Pages.Shared.PropositionsModel
 
 
-<div class="row bg-green-bright p-3 rounded border border-dark mb-1"><span class="font-lg">Saved Propositions</span></div>
+<div class="row bg-green-bright p-3 rounded border border-dark mb-1"><span class="font-lg">Today's System Raised Propositions</span></div>
 <div class="row font-md bg-sub-header p-3 rounded border border-dark mb-1">
     <div class="col-1">Saved At</div>
     <div class="col-1">Meeting</div>
@@ -15,11 +15,11 @@
 </div>
 <div class="row border border-dark rounded p-3 mb-5 bg-light-blue">
     <div class="col-12">
-        @foreach (var proposition in Model.SavedPropositions
-        .OrderBy(p => p.EventName)
-        .ThenBy(p => p.EventDateTime)
+        @foreach (var proposition in Model.RaisedPropositions
+        .OrderBy(p => p.EventDateTime)
         .ThenBy(p => p.WinRunnerOddsDecimal)
-        .ThenBy(p => p.RunnerName))
+        .ThenBy(p => p.RunnerName)
+        .ThenBy(p => p.EventName))
         {
             @await Html.PartialAsync("SinglePropositionPartial", proposition)
         }

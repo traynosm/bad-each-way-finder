@@ -1,6 +1,6 @@
 ﻿namespace bad_each_way_finder_domain.Dto
 {
-    public class SavedPropositionDto
+    public class RaisedPropositionDto
     {
         public string RunnerName { get; set; }
         public double WinRunnerOddsDecimal { get; set; }

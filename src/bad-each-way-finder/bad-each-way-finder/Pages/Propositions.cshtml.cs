@@ -12,7 +12,7 @@ namespace bad_each_way_finder.Pages.Shared
 
         public List<Proposition> LivePropositions { get; set; }
         public List<Proposition> AccountPropositions { get; set; }
-        public List<Proposition> SavedPropositions { get; set; }
+        public List<Proposition> RaisedPropositions { get; set; }
 
         public PropositionsModel(IApiService apiService)
         {
@@ -20,7 +20,7 @@ namespace bad_each_way_finder.Pages.Shared
 
             LivePropositions = new List<Proposition>();
             AccountPropositions = new List<Proposition>();
-            SavedPropositions = new List<Proposition>();
+            RaisedPropositions = new List<Proposition>();
         }
         public async Task OnGet()
         {
@@ -43,7 +43,7 @@ namespace bad_each_way_finder.Pages.Shared
             var eventId = form["event-id"].ToString();
             var user = HttpContext.User.Identity!.Name;
 
-            var Dto = new SavedPropositionDto()
+            var Dto = new RaisedPropositionDto()
             {
                 RunnerName = runnerName,
                 WinRunnerOddsDecimal = winOdds,
@@ -51,7 +51,11 @@ namespace bad_each_way_finder.Pages.Shared
                 IdentityUserName = user!,
             };
 
-            var accountPropositions = await _apiService.PostSavedPropostionDto(Dto);
+            var accountPropositions = await _apiService.PostRaisedPropostionDto(Dto);
+
+            accountPropositions = accountPropositions?
+                .Where(p => p.EventDateTime.Date >= DateTime.Today)
+                .ToList();
 
             AccountPropositions = accountPropositions;
 
@@ -66,7 +70,7 @@ namespace bad_each_way_finder.Pages.Shared
             var eventId = form["event-id"].ToString();
             var user = HttpContext.User.Identity!.Name;
 
-            var Dto = new SavedPropositionDto()
+            var Dto = new RaisedPropositionDto()
             {
                 RunnerName = runnerName,
                 WinRunnerOddsDecimal = winOdds,
@@ -74,7 +78,11 @@ namespace bad_each_way_finder.Pages.Shared
                 IdentityUserName = user!,
             };
 
-            var accountPropositions = await _apiService.RemoveSavedPropostionDto(Dto);
+            var accountPropositions = await _apiService.RemoveRaisedPropostionDto(Dto);
+
+            accountPropositions = accountPropositions?
+                .Where(p => p.EventDateTime.Date >= DateTime.Today)
+                .ToList();
 
             AccountPropositions = accountPropositions;
 
@@ -100,9 +108,14 @@ namespace bad_each_way_finder.Pages.Shared
         {
             var Dto = await _apiService.GetRacesAndPropositionsDto();
             LivePropositions = Dto!.LivePropositions;
-            SavedPropositions = Dto!.SavedPropositions; 
+            RaisedPropositions = Dto!.RaisedPropositions; 
 
             var accountPropositions = await _apiService.GetAccountPropositions(userName);
+
+            accountPropositions = accountPropositions?
+                .Where(p => p.EventDateTime.Date >= DateTime.Today)
+                .ToList();
+
             AccountPropositions = accountPropositions ?? new List<Proposition>();
         }
 

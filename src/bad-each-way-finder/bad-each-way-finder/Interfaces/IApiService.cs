@@ -7,7 +7,7 @@ namespace bad_each_way_finder.Interfaces
     {
         Task<RacesAndPropositionsDto?> GetRacesAndPropositionsDto();
         Task<List<Proposition>?> GetAccountPropositions(string userName);
-        Task<List<Proposition>> PostSavedPropostionDto(SavedPropositionDto savedPropositionDto);
-        Task<List<Proposition>> RemoveSavedPropostionDto(SavedPropositionDto savedPropositionDto);
+        Task<List<Proposition>> PostRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto);
+        Task<List<Proposition>> RemoveRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto);
     }
 }

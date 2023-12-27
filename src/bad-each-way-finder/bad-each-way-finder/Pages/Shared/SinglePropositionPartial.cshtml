@@ -8,7 +8,7 @@
         @Model.RecordedAt
     </div>
     <div class="col-1 text-warning">
-        @Model.EventName.Substring(0, @Model.EventName.Length - 8) 
+        @Model.EventName
     </div>
     <div class="col-1 text-warning">
         @Model.EventDateTime.ToString("HH:mm")
@@ -45,7 +45,7 @@
             <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
             <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal"/>
             <input type="hidden" id="event-id" name="event-id" value="@Model.EventId"/>
-            @if(propositionType == "Saved")
+            @if(propositionType == "Raised")
             {
                 <button class="btn btn-sm btn-primary proposition-submit"><i class="fa-regular fa-floppy-disk"></i></button>
             }
