@@ -1,5 +1,7 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder_domain.DomainModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace bad_each_way_finder.Pages
@@ -12,8 +14,12 @@ namespace bad_each_way_finder.Pages
         public HistoryModel(IApiService apiService)
         {
             _apiService = apiService;
+
+            Propositions = new List<Proposition>();
         }
-        public async Task OnGet()
+
+        [Authorize]
+        public async Task<IActionResult> OnGet()
         {
             //get username from Httpcontext
             var userName = HttpContext.User.Identity!.Name;
@@ -22,7 +28,7 @@ namespace bad_each_way_finder.Pages
             if(string.IsNullOrEmpty(userName))
             {
                 //if not logged in return empty page
-                return;
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
             //get propositions of logged in user
@@ -35,6 +41,8 @@ namespace bad_each_way_finder.Pages
 
             //assigning Propositions. Returning empty list if accountPropositions is null
             Propositions = accountPropositions ?? new List<Proposition>();
+
+            return Page();
         }
     }
 }

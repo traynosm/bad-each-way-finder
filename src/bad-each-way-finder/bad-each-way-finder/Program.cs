@@ -32,6 +32,17 @@ namespace bad_each_way_finder
             builder.Services.Configure<ApiSettings>(o =>
                 builder.Configuration.GetSection("ApiSettings").Bind(o));
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                //options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

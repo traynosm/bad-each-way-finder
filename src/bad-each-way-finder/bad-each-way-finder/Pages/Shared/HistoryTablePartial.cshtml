@@ -28,6 +28,11 @@
             .Sortable(true)
             .Filterable(true);
 
+            columns.Add(m => m.SportsbookNumberOfPlaces).Titled("EW Terms")
+            .RenderedAs(m => $"{m.SportsbookNumberOfPlaces} 1/{m.SportsbookPlaceFractionDenominator}")
+            .Sortable(false)
+            .Filterable(false); ;
+
             columns.Add(m => m.Rule4Deduction.ToString("0")).Titled("Rule 4")
             .Sortable(true)
             .Filterable(true);
