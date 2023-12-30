@@ -9,23 +9,30 @@ namespace bad_each_way_finder.Pages.Shared
     public class PropositionsModel : PageModel
     {
         private readonly IApiService _apiService;
+        private readonly ITokenService _tokenService;
 
         public List<Proposition> LivePropositions { get; set; }
         public List<Proposition> AccountPropositions { get; set; }
         public List<Proposition> RaisedPropositions { get; set; }
 
-        public PropositionsModel(IApiService apiService)
+        public PropositionsModel(IApiService apiService, ITokenService tokenService)
         {
             _apiService = apiService;
+            _tokenService = tokenService;
 
             LivePropositions = new List<Proposition>();
             AccountPropositions = new List<Proposition>();
             RaisedPropositions = new List<Proposition>();
         }
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            if (!_tokenService.ValidateToken())
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
             var userName = HttpContext.User.Identity!.Name;
             await GetDto(userName!);
+            return Page();
         }
         public async Task<PartialViewResult> OnGetPropositions()
         {
