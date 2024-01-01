@@ -9,11 +9,11 @@ namespace bad_each_way_finder.Model
             Username = string.Empty;
             Password = string.Empty;
             Email = string.Empty;
-            Roles = new List<string>();        
+            UserRoles = new List<string>();        
         }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public IEnumerable<string> Roles { get; set; }
+        public IEnumerable<string> UserRoles { get; set; }
     }
 }

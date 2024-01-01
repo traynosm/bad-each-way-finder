@@ -74,7 +74,7 @@ namespace bad_each_way_finder.Services
             identityUser = await identityUser.UpsertUser(_userManager);
             identityUser = await identityUser.UpdateRoles(_userManager, _roleManager, roles);
 
-            return new LoginResult() { IdentityUser = identityUser, Roles = roles, Succeeded = true };
+            return new LoginResult() { IdentityUser = identityUser, UserRoles = roles, Succeeded = true };
         }
 
         public async Task<LoginResult> Register(User user)
@@ -98,7 +98,7 @@ namespace bad_each_way_finder.Services
             identityUser = await identityUser.UpsertUser(_userManager);
             identityUser = await identityUser.UpdateRoles(_userManager, _roleManager, roles);
 
-            return new LoginResult() { IdentityUser = identityUser, Roles = roles, Succeeded = true };
+            return new LoginResult() { IdentityUser = identityUser, UserRoles = roles, Succeeded = true };
         }
 
         private async Task<HttpResponseMessage> PostAsync(string endpoint, object body)
