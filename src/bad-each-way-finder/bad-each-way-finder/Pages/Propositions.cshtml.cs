@@ -1,11 +1,13 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder_domain.DomainModel;
 using bad_each_way_finder_domain.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace bad_each_way_finder.Pages.Shared
 {
+    [Authorize(Roles = "Admin, User")]
     public class PropositionsModel : PageModel
     {
         private readonly IApiService _apiService;
@@ -24,12 +26,9 @@ namespace bad_each_way_finder.Pages.Shared
             AccountPropositions = new List<Proposition>();
             RaisedPropositions = new List<Proposition>();
         }
+
         public async Task<IActionResult> OnGet()
         {
-            if (!_tokenService.ValidateToken())
-            {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
-            }
             var userName = HttpContext.User.Identity!.Name;
             await GetDto(userName!);
             return Page();

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace bad_each_way_finder.Pages
 {
+    [Authorize(Roles = "Admin, User")]
     public class HistoryModel : PageModel
     {
         public List<Proposition> Propositions { get; set; }
@@ -18,7 +19,6 @@ namespace bad_each_way_finder.Pages
             Propositions = new List<Proposition>();
         }
 
-        [Authorize]
         public async Task<IActionResult> OnGet()
         {
             //get username from Httpcontext

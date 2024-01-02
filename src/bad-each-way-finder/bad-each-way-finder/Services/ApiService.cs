@@ -12,20 +12,25 @@ namespace bad_each_way_finder.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IOptions<ApiSettings> _options;
+        private readonly ITokenService _tokenService;
 
-        public ApiService(HttpClient httpClient, IOptions<ApiSettings> options)
+        public ApiService(HttpClient httpClient, IOptions<ApiSettings> options,
+            ITokenService tokenService)
         {
             _httpClient = httpClient;
             _options = options;
             _httpClient.BaseAddress = new Uri(_options.Value.BaseUrl);
+            _tokenService = tokenService;
         }
 
         public async Task<RacesAndPropositionsDto?> GetRacesAndPropositionsDto()
         {
             try
             {
-               var result = await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto?>(
-                   "/api/Proposition");
+                var token = _tokenService.JwtToken;
+
+                var result = await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto?>(
+                   $"/api/Proposition?token={token}");
 
                 return result;
             }
@@ -41,8 +46,9 @@ namespace bad_each_way_finder.Services
         {
             try
             {
+                var token = _tokenService.JwtToken;
                 var result = await _httpClient.GetFromJsonAsync<List<Proposition>?>(
-                    $"/api/Account/GetAccountPropositions/{userName}");
+                    $"/api/Account/GetAccountPropositions/{userName}/{token}");
 
                 return result;
             }
@@ -56,6 +62,9 @@ namespace bad_each_way_finder.Services
 
         public async Task<List<Proposition>> PostRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto)
         {
+            var token = _tokenService.JwtToken;
+            raisedPropositionDto.Token = token;
+
             var json = JsonConvert.SerializeObject(raisedPropositionDto);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -76,6 +85,9 @@ namespace bad_each_way_finder.Services
 
         public async Task<List<Proposition>> RemoveRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto)
         {
+            var token = _tokenService.JwtToken;
+            raisedPropositionDto.Token = token;
+
             var json = JsonConvert.SerializeObject(raisedPropositionDto);
 
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");

@@ -6,5 +6,6 @@
         public double WinRunnerOddsDecimal { get; set; }
         public string EventId { get; set; }
         public string IdentityUserName { get; set; }
+        public string Token { get; set; }
     }
 }

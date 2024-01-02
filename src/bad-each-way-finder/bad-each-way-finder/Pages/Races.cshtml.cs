@@ -1,11 +1,13 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder_domain.DomainModel;
-using bad_each_way_finder_domain.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace bad_each_way_finder.Pages
 {
+    [Authorize(Roles = "Admin, User")]
     public class RacesModel : PageModel
     {
         public List<Race> Races { get; set; }
