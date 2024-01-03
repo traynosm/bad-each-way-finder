@@ -45,7 +45,6 @@
         }
     });
 
-
     function refreshPropositions() {
         $.get({
             url: '?handler=Propositions',
@@ -53,8 +52,20 @@
 
             },
             success: function (result) {
-                $("#propositions").html('');
-                $("#propositions").html(result);
+                let parser = new DOMParser();
+                let parsedHtml = parser.parseFromString(result, 'text/html');
+                let live_propositions = parsedHtml.getElementById("live-propositions").innerHTML;
+                let account_propositions = parsedHtml.getElementById("account-propositions").innerHTML;
+                let raised_propositions = parsedHtml.getElementById("raised-propositions").innerHTML;
+
+                $("#live-propositions").html('');
+                $("#account-propositions").html('');
+                $("#raised-propositions").html('');
+
+                $("#live-propositions").html(live_propositions);
+                $("#account-propositions").html(account_propositions);
+                $("#raised-propositions").html(raised_propositions);
+
                 $("#last-updated-time").fadeOut(80).fadeIn(80).fadeOut(80).fadeIn(80);
             }
         });
@@ -71,7 +82,6 @@
             url: "?handler=AddAccountProposition",
             data: data,
             success: function (result) {
-                console.log(result);
                 $("#account-propositions").html('');
                 $("#account-propositions").html(result);
             }
@@ -89,10 +99,15 @@
             url: "?handler=RemoveAccountProposition",
             data: data,
             success: function (result) {
-                console.log(result);
                 $("#account-propositions").html('');
                 $("#account-propositions").html(result);
             }
         });
     };
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(
+        function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 });

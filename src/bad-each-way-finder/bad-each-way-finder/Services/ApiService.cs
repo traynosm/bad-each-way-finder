@@ -105,5 +105,10 @@ namespace bad_each_way_finder.Services
 
             return raisedPropositions!;
         }
+
+        public async Task Logoout(string token)
+        {
+            await _httpClient.GetAsync($"/api/Identity/Logout/{token}");
+        }
     }
 }

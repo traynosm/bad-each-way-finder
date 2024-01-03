@@ -14,19 +14,24 @@ namespace bad_each_way_finder.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
         private readonly ITokenService _tokenService;
+        private readonly IApiService _apiService;
 
         public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger,
-            ITokenService tokenService)
+            ITokenService tokenService, IApiService apiService)
         {
             _signInManager = signInManager;
             _logger = logger;
             _tokenService = tokenService;
+            _apiService = apiService;
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            var token = _tokenService.JwtToken;
+            await _apiService.Logoout(token);
+
             _tokenService.RevokeToken();
             if (returnUrl != null)
             {

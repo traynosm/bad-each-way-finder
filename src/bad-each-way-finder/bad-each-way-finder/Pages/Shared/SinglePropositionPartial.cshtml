@@ -47,11 +47,16 @@
             <input type="hidden" id="event-id" name="event-id" value="@Model.EventId"/>
             @if(propositionType == "Raised")
             {
-                <button class="btn btn-sm btn-primary proposition-submit"><i class="fa-regular fa-floppy-disk"></i></button>
+                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to save and track this proposition">
+                    <button class="btn btn-sm btn-primary proposition-submit"><i class="fa-regular fa-floppy-disk"></i></button>
+                </span>
+
             }
             else
             {
-                <button class="btn btn-sm btn-danger proposition-remove"><i class="fa-solid fa-trash fa-fw"></i></button>
+                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to remove this proposition(the propostion will not appear in your history)">
+                    <button class="btn btn-sm btn-danger proposition-remove"><i class="fa-solid fa-trash fa-fw"></i></button>
+                </span>
             }
         </form>
     </div>

@@ -9,5 +9,6 @@ namespace bad_each_way_finder.Interfaces
         Task<List<Proposition>?> GetAccountPropositions(string userName);
         Task<List<Proposition>> PostRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto);
         Task<List<Proposition>> RemoveRaisedPropostionDto(RaisedPropositionDto raisedPropositionDto);
+        Task Logoout(string token);
     }
 }

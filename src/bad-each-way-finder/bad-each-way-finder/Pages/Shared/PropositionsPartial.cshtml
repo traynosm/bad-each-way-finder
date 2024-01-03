@@ -5,15 +5,34 @@
          <span id="last-updated-time" class="text-dark-magenta border border-dark rounded-1 bg-light-pink p-1">Last Updated - @DateTime.Now.ToString("HH:mm:ss")</span>
     </div>
 
-    <div class="row bg-green-bright p-3 rounded border border-dark mb-1"><span class="font-lg">Live Propositions</span></div>
+    <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
+        <span class="font-lg">
+            Live Propositions
+            <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Propositions as they happen">
+                <i class="fa-solid fa-circle-info"></i>
+            </span>
+        </span>
+    </div>
 
     <div id="live-propositions">
         @if (Model.LivePropositions.Any())
-            {
+        {
             @await Html.PartialAsync("LivePropositionsPartial", Model)
         }
     </div>
 
+    <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
+        <a class="text-dark" style="text-decoration: none;" data-bs-toggle="collapse" href="#account-collapse" role="button" aria-expanded="false" aria-controls="account-collapse">
+            <span class="font-lg">
+                Today's Tracked Propositions
+                <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Your Saved Propositions for Today's Racing">
+                    <i class="fa-solid fa-circle-info"></i>
+                </span>
+
+            </span>
+        </a>
+    </div>
+    <div class="collapse" id="account-collapse">
     <div id="account-propositions">
         @if (Model.AccountPropositions.Any())
         {
@@ -21,12 +40,27 @@
             @await Html.PartialAsync("AccountPropositionsPartial", Model)
         }
     </div>
-    <div id="saved-propositions">
+    </div>
+
+    <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
+        <a class="text-dark" style="text-decoration: none;" data-bs-toggle="collapse" href="#raised-collapse" role="button" aria-expanded="false" aria-controls="raised-collapse">
+            <span class="font-lg">
+                Today's System Raised Propositions
+                <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="All Raised Propositions for Today's Racing">
+                    <i class="fa-solid fa-circle-info"></i>
+                </span>
+
+            </span>
+        </a>    
+    </div>
+    <div class="collapse" id="raised-collapse">
+    <div id="raised-propositions">
         @if (Model.RaisedPropositions.Any())
         {
             ViewData["PropositionType"] = "Raised";
             @await Html.PartialAsync("RaisedPropositionsPartial", Model)
         }
+    </div>
     </div>
 </div>
 
