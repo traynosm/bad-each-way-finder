@@ -2,6 +2,7 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder.Model;
 using bad_each_way_finder.Settings;
+using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -47,7 +48,7 @@ namespace bad_each_way_finder.Services
             catch
             {
                 _logger.LogCritical($"Backend is running = false. " +
-                    $"Please ensure core-strength-yoga-products-management-api is running!");
+                    $"Please ensure bad-each-eay-finder-api is running!");
 
                 return false;
             }
@@ -55,55 +56,78 @@ namespace bad_each_way_finder.Services
 
         public async Task<LoginResult> Login(User user)
         {
-            var response = await PostAsync("login", user);
-
-            var contentResult = TryExtractContent(response, out var jsonObject);
-            
-            if(contentResult.Contains("failed"))
+            try 
             {
-                return new LoginResult { Succeeded = false, Message = contentResult };
+                var response = await PostAsync("login", user);
+
+                var contentResult = TryExtractContent(response, out var jsonObject);
+
+                if (contentResult.Contains("failed"))
+                {
+                    return new LoginResult { Succeeded = false, Message = contentResult };
+                }
+
+                _tokenService.JwtToken = ExtractFromJson<string>(jsonObject, "token");
+                var expiration = ExtractFromJson<string>(jsonObject, "expiration");
+                _tokenService.Expiration = DateTime.Parse(expiration);
+
+                var identityUser = ExtractFromJson<IdentityUser>(jsonObject, "user");
+                var roles = ExtractFromJson<IEnumerable<string>>(jsonObject, "roles");
+
+                identityUser = await identityUser.UpsertUser(_userManager);
+                identityUser = await identityUser.UpdateRoles(_userManager, _roleManager, roles);
+
+                return new LoginResult() { IdentityUser = identityUser, UserRoles = roles, Succeeded = true };
             }
-
-            _tokenService.JwtToken = ExtractFromJson<string>(jsonObject, "token");
-            var expiration = ExtractFromJson<string>(jsonObject, "expiration");
-            _tokenService.Expiration = DateTime.Parse(expiration);
-
-            var identityUser = ExtractFromJson<IdentityUser>(jsonObject, "user");
-            var roles = ExtractFromJson<IEnumerable<string>>(jsonObject, "roles");
-
-            identityUser = await identityUser.UpsertUser(_userManager);
-            identityUser = await identityUser.UpdateRoles(_userManager, _roleManager, roles);
-
-            return new LoginResult() { IdentityUser = identityUser, UserRoles = roles, Succeeded = true };
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception raised, Login failed.");
+                throw new LoginServiceException(ex, $"{ex.Message} - Logoout() failed.");
+            }
         }
 
         public async Task<LoginResult> Register(User user)
         {
-            var response = await PostAsync("register", user);
-
-            var contentResult = TryExtractContent(response, out var jsonObject);
-
-            if (contentResult.Contains("failed"))
+            try
             {
-                return new LoginResult { Succeeded = false, Message = contentResult };
+                var response = await PostAsync("register", user);
+
+                var contentResult = TryExtractContent(response, out var jsonObject);
+
+                if (contentResult.Contains("failed"))
+                {
+                    return new LoginResult { Succeeded = false, Message = contentResult };
+                }
+
+                _tokenService.JwtToken = ExtractFromJson<string>(jsonObject, "token");
+                var expiration = ExtractFromJson<string>(jsonObject, "expiration");
+                _tokenService.Expiration = DateTime.Parse(expiration);
+
+                var identityUser = ExtractFromJson<IdentityUser>(jsonObject, "user");
+                var roles = ExtractFromJson<IEnumerable<string>>(jsonObject, "roles");
+
+                identityUser = await identityUser.UpsertUser(_userManager);
+                identityUser = await identityUser.UpdateRoles(_userManager, _roleManager, roles);
+
+                return new LoginResult() { IdentityUser = identityUser, UserRoles = roles, Succeeded = true };
             }
-
-            _tokenService.JwtToken = ExtractFromJson<string>(jsonObject, "token");
-            var expiration = ExtractFromJson<string>(jsonObject, "expiration");
-            _tokenService.Expiration = DateTime.Parse(expiration);
-
-            var identityUser = ExtractFromJson<IdentityUser>(jsonObject, "user");
-            var roles = ExtractFromJson<IEnumerable<string>>(jsonObject, "roles");
-
-            identityUser = await identityUser.UpsertUser(_userManager);
-            identityUser = await identityUser.UpdateRoles(_userManager, _roleManager, roles);
-
-            return new LoginResult() { IdentityUser = identityUser, UserRoles = roles, Succeeded = true };
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception raised, Register failed.");
+                throw new LoginServiceException(ex, $"{ex.Message} - Register() failed.");
+            }
         }
 
         private async Task<HttpResponseMessage> PostAsync(string endpoint, object body)
         {
-            return await _httpClient.PostAsync($"/api/identity/{endpoint}", WithContent(body));
+            try
+            {
+                return await _httpClient.PostAsync($"/api/identity/{endpoint}", WithContent(body));
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         private StringContent WithContent(object body)
@@ -121,47 +145,61 @@ namespace bad_each_way_finder.Services
 
         private static string TryExtractContent(HttpResponseMessage response, out JObject result)
         {
-            result = new JObject();
-            
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                return $"Request failed {response.StatusCode}. {response.Content.ReadAsStringAsync().Result}";
-            }
+                result = new JObject();
 
-            var content = string.Empty;
-            using (var sr = new StreamReader(response.Content.ReadAsStream())) 
-            { 
-                content = sr.ReadToEnd(); 
-            }
+                if (!response.IsSuccessStatusCode)
+                {
+                    return $"Request failed {response.StatusCode}. {response.Content.ReadAsStringAsync().Result}";
+                }
 
-            if(string.IsNullOrEmpty(content))
+                var content = string.Empty;
+                using (var sr = new StreamReader(response.Content.ReadAsStream()))
+                {
+                    content = sr.ReadToEnd();
+                }
+
+                if (string.IsNullOrEmpty(content))
+                {
+                    return $"Response content failed to be parsed.";
+                }
+
+                result = JObject.Parse(content);
+
+                return "success";
+            }
+            catch
             {
-                return $"Response content failed to be parsed.";
+                throw;
             }
-
-            result = JObject.Parse(content);
-
-            return "success";
         }
 
         private static T ExtractFromJson<T>(JObject jsonObject, string prop) where T : class
         {
-            var value = jsonObject?.GetValue(prop)?.ToString() ??
-                throw new NullReferenceException($"Could not read {prop} from JsonObject.");
-
-            T result = null;
-
-            if(typeof(T) != typeof(string))
+            try
             {
-                result = JsonConvert.DeserializeObject<T>(value) ??
-                            throw new JsonSerializationException($"Deserialization of {prop} to {typeof(T).Name} failed.");
-            }
-            else
-            {
-                result = (T)Convert.ChangeType(value, typeof(T)); 
-            }
+                var value = jsonObject?.GetValue(prop)?.ToString() ??
+                    throw new NullReferenceException($"Could not read {prop} from JsonObject.");
 
-            return result;
+                T result = null;
+
+                if (typeof(T) != typeof(string))
+                {
+                    result = JsonConvert.DeserializeObject<T>(value) ??
+                                throw new JsonSerializationException($"Deserialization of {prop} to {typeof(T).Name} failed.");
+                }
+                else
+                {
+                    result = (T)Convert.ChangeType(value, typeof(T));
+                }
+
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

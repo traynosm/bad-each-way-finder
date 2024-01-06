@@ -1,6 +1,7 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder_domain.DomainModel;
 using bad_each_way_finder_domain.Dto;
+using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -31,6 +32,7 @@ namespace bad_each_way_finder.Pages.Shared
         {
             var userName = HttpContext.User.Identity!.Name;
             await GetDto(userName!);
+
             return Page();
         }
         public async Task<PartialViewResult> OnGetPropositions()
@@ -112,17 +114,28 @@ namespace bad_each_way_finder.Pages.Shared
 
         public async Task GetDto(string userName)
         {
-            var Dto = await _apiService.GetRacesAndPropositionsDto();
-            LivePropositions = Dto!.LivePropositions;
-            RaisedPropositions = Dto!.RaisedPropositions; 
+            try
+            {
+                var Dto = await _apiService.GetRacesAndPropositionsDto();
+                LivePropositions = Dto!.LivePropositions;
+                RaisedPropositions = Dto!.RaisedPropositions;
 
-            var accountPropositions = await _apiService.GetAccountPropositions(userName);
+                var accountPropositions = await _apiService.GetAccountPropositions(userName);
 
-            accountPropositions = accountPropositions?
-                .Where(p => p.EventDateTime.Date >= DateTime.Today)
-                .ToList();
+                accountPropositions = accountPropositions?
+                    .Where(p => p.EventDateTime.Date >= DateTime.Today)
+                    .ToList();
 
-            AccountPropositions = accountPropositions ?? new List<Proposition>();
+                AccountPropositions = accountPropositions ?? new List<Proposition>();
+            }
+            catch (ApiServiceException apiException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
     }

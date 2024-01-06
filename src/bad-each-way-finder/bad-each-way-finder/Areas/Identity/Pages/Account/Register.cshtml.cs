@@ -4,6 +4,7 @@
 
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder.Models.Enums;
+using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -112,13 +113,23 @@ namespace bad_each_way_finder.Areas.Identity.Pages.Account
             {
                 var roles = new List<string>() { UserRoles.User.ToString() };
 
-                var apiLoginResult = await _loginService.Register(new Model.User()
+                var apiLoginResult = new Model.LoginResult();
+                try
                 {
-                    Username = Input.Email,
-                    Password = Input.Password,
-                    Email = Input.Email,
-                    UserRoles = roles
-                });
+                    apiLoginResult = await _loginService.Register(new Model.User()
+                    {
+                        Username = Input.Email,
+                        Password = Input.Password,
+                        Email = Input.Email,
+                        UserRoles = roles
+                    });
+                }
+                catch (LoginServiceException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    ModelState.AddModelError(string.Empty, "Backend Registration failed");
+                    return Page();
+                }
 
                 if (apiLoginResult.Succeeded)
                 {
@@ -135,7 +146,7 @@ namespace bad_each_way_finder.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        ModelState.AddModelError(string.Empty, "Invalid registration attempt.");
                         return Page();
                     }
                 }

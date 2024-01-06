@@ -3,6 +3,7 @@
 #nullable disable
 
 using bad_each_way_finder.Interfaces;
+using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -106,15 +107,24 @@ namespace bad_each_way_finder.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                var apiLoginResult = new Model.LoginResult();
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
-                var apiLoginResult = await _loginService.Login(new Model.User()
+                try
                 {
-                    Username = Input.Email,
-                    Password = Input.Password,
-                    Email = Input.Email
-                });
+                    apiLoginResult = await _loginService.Login(new Model.User()
+                    {
+                        Username = Input.Email,
+                        Password = Input.Password,
+                        Email = Input.Email
+                    });
+                }
+                catch (LoginServiceException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    ModelState.AddModelError(string.Empty, "Backend login failed.");
+                    return Page();
+                }
 
                 var signInResult = new Microsoft.AspNetCore.Identity.SignInResult();
                 if (apiLoginResult.Succeeded)
