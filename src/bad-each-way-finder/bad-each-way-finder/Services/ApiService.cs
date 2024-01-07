@@ -120,18 +120,5 @@ namespace bad_each_way_finder.Services
                 throw new ApiServiceException(ex, $"{ex.Message} - RemoveRaisedPropostionDto() failed.");
             }
         }
-
-        public async Task Logoout(string token)
-        {
-            try
-            {
-                await _httpClient.GetAsync($"/api/Identity/Logout/{token}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception raised, Logoout failed.");
-                throw new ApiServiceException(ex, $"{ex.Message} - Logoout() failed.");
-            }
-        }
     }
 }

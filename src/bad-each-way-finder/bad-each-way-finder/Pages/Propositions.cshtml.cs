@@ -5,6 +5,7 @@ using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace bad_each_way_finder.Pages.Shared
 {
@@ -30,73 +31,110 @@ namespace bad_each_way_finder.Pages.Shared
 
         public async Task<IActionResult> OnGet()
         {
-            var userName = HttpContext.User.Identity!.Name;
-            await GetDto(userName!);
+            try
+            {
+                var userName = HttpContext.User.Identity!.Name;
+                await GetDto(userName!);
 
-            return Page();
+                return Page();
+            }
+            catch (ApiServiceException ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["Exception"] = JsonConvert.SerializeObject(
+                    new Exception("Could not get GetRacesAndPropositionsDto()"));
+                return RedirectToPage("./Error");
+            }
         }
         public async Task<PartialViewResult> OnGetPropositions()
         {
-            var userName = HttpContext.User.Identity!.Name;
-            await GetDto(userName!);
+            try
+            {
+                var userName = HttpContext.User.Identity!.Name;
+                await GetDto(userName!);
 
-            return PartialView("PropositionsPartial", this);
+                return PartialView("PropositionsPartial", this);
+            }
+            catch (ApiServiceException ex)
+            {
+                ModelState.AddModelError("Exception Message", $"{ex.Message}");
+                Console.WriteLine(ex.Message);
+                return PartialView("PropositionsPartial", this);
+            }
         }
 
         public async Task<PartialViewResult> OnPostAddAccountProposition()
         {
-            var form = HttpContext.Request.Form;
-            var runnerName = form["runner-name"].ToString();
-            var winOdds = double.Parse(form["win-odds"].ToString());
-            var eventId = form["event-id"].ToString();
-            var user = HttpContext.User.Identity!.Name;
-
-            var Dto = new RaisedPropositionDto()
+            try
             {
-                RunnerName = runnerName,
-                WinRunnerOddsDecimal = winOdds,
-                EventId = eventId,
-                IdentityUserName = user!,
-            };
+                var form = HttpContext.Request.Form;
+                var runnerName = form["runner-name"].ToString();
+                var winOdds = double.Parse(form["win-odds"].ToString());
+                var eventId = form["event-id"].ToString();
+                var user = HttpContext.User.Identity!.Name;
 
-            var accountPropositions = await _apiService.PostRaisedPropostionDto(Dto);
+                var Dto = new RaisedPropositionDto()
+                {
+                    RunnerName = runnerName,
+                    WinRunnerOddsDecimal = winOdds,
+                    EventId = eventId,
+                    IdentityUserName = user!,
+                };
 
-            accountPropositions = accountPropositions?
-                .Where(p => p.EventDateTime.Date >= DateTime.Today)
-                .ToList();
+                var accountPropositions = await _apiService.PostRaisedPropostionDto(Dto);
 
-            AccountPropositions = accountPropositions;
+                accountPropositions = accountPropositions?
+                    .Where(p => p.EventDateTime.Date >= DateTime.Today)
+                    .ToList();
 
-            return PartialView("AccountPropositionsPartial", this);
+                AccountPropositions = accountPropositions;
+
+                return PartialView("AccountPropositionsPartial", this);
+            }
+            catch (ApiServiceException ex)
+            {
+                ModelState.AddModelError("Exception Message", $"{ex.Message}");
+                Console.WriteLine(ex.Message);
+                return PartialView("AccountPropositionsPartial", this);
+            }
         }
 
         public async Task<PartialViewResult> OnPostRemoveAccountProposition()
         {
-            var form = HttpContext.Request.Form;
-            var runnerName = form["runner-name"].ToString();
-            var winOdds = double.Parse(form["win-odds"].ToString());
-            var eventId = form["event-id"].ToString();
-            var user = HttpContext.User.Identity!.Name;
-
-            var Dto = new RaisedPropositionDto()
+            try
             {
-                RunnerName = runnerName,
-                WinRunnerOddsDecimal = winOdds,
-                EventId = eventId,
-                IdentityUserName = user!,
-            };
+                var form = HttpContext.Request.Form;
+                var runnerName = form["runner-name"].ToString();
+                var winOdds = double.Parse(form["win-odds"].ToString());
+                var eventId = form["event-id"].ToString();
+                var user = HttpContext.User.Identity!.Name;
 
-            var accountPropositions = await _apiService.RemoveRaisedPropostionDto(Dto);
+                var Dto = new RaisedPropositionDto()
+                {
+                    RunnerName = runnerName,
+                    WinRunnerOddsDecimal = winOdds,
+                    EventId = eventId,
+                    IdentityUserName = user!,
+                };
 
-            accountPropositions = accountPropositions?
-                .Where(p => p.EventDateTime.Date >= DateTime.Today)
-                .ToList();
+                var accountPropositions = await _apiService.RemoveRaisedPropostionDto(Dto);
 
-            AccountPropositions = accountPropositions;
+                accountPropositions = accountPropositions?
+                    .Where(p => p.EventDateTime.Date >= DateTime.Today)
+                    .ToList();
 
-            ViewData["PropositionType"] = "Account";
+                AccountPropositions = accountPropositions;
 
-            return PartialView("AccountPropositionsPartial", this);
+                ViewData["PropositionType"] = "Account";
+
+                return PartialView("AccountPropositionsPartial", this);
+            }
+            catch (ApiServiceException ex)
+            {
+                ModelState.AddModelError("Exception Message", $"{ex.Message}");
+                Console.WriteLine(ex.Message);
+                return PartialView("AccountPropositionsPartial", this);
+            }
         }
 
         [NonAction]

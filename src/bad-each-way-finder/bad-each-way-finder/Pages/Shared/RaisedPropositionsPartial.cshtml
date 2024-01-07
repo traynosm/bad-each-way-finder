@@ -1,37 +1,47 @@
 ﻿@model bad_each_way_finder.Pages.Shared.PropositionsModel
 
+@if (!Model.ModelState.IsValid)
+{
+    @if (Model.ModelState.ContainsKey("Exception Message"))
+    {
+        @await Html.PartialAsync("ErrorPartial", @Model.ModelState["Exception Message"]!.Errors.First().ErrorMessage)
+    }
+}
+else
+{
+    <div class="row font-md bg-sub-header p-3 rounded border border-dark mb-1">
+        <div class="col-1">Saved At</div>
+        <div class="col-1">Meeting</div>
+        <div class="col-1">Time</div>
+        <div class="col-2">Runner Name</div>
+        <div class="col-1">
+            <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Saved Odds">Odds</span>
+        </div>
+        <div class="col-1">
+            <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Each Way Terms">EW Terms</span>
+        </div>
+        <div class="col-2">
+            <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Saved Prices">Saved At Prices</span>
+        </div>
+        <div class="col-2">
+            <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Prices">Latest Prices</span>
+        </div>
+        <div class="col-1">Save/Remove</div>
+    </div>
+    <div class="row border border-dark rounded p-3 mb-5 bg-light-blue">
+        <div class="col-12">
+            @foreach (var proposition in Model.RaisedPropositions
+           .OrderBy(p => p.EventDateTime)
+           .ThenBy(p => p.WinRunnerOddsDecimal)
+           .ThenBy(p => p.RunnerName)
+           .ThenBy(p => p.EventName))
+            {
+                @await Html.PartialAsync("SinglePropositionPartial", proposition)
+            }
+        </div>
+    </div>
+}
 
-<div class="row font-md bg-sub-header p-3 rounded border border-dark mb-1">
-    <div class="col-1">Saved At</div>
-    <div class="col-1">Meeting</div>
-    <div class="col-1">Time</div>
-    <div class="col-2">Runner Name</div>
-    <div class="col-1">
-        <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Saved Odds">Odds</span>
-    </div>
-    <div class="col-1">
-        <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Each Way Terms">EW Terms</span>
-    </div>
-    <div class="col-2">
-        <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Saved Prices">Saved At Prices</span>
-    </div>
-    <div class="col-2">
-        <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Latest Prices">Latest Prices</span>
-    </div>
-    <div class="col-1">Save/Remove</div>
-</div>
-<div class="row border border-dark rounded p-3 mb-5 bg-light-blue">
-    <div class="col-12">
-        @foreach (var proposition in Model.RaisedPropositions
-        .OrderBy(p => p.EventDateTime)
-        .ThenBy(p => p.WinRunnerOddsDecimal)
-        .ThenBy(p => p.RunnerName)
-        .ThenBy(p => p.EventName))
-        {
-            @await Html.PartialAsync("SinglePropositionPartial", proposition)
-        }
-    </div>
-</div>
 <script>
     $(document).ready(function () {
 

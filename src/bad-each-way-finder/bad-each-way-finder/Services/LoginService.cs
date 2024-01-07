@@ -117,6 +117,19 @@ namespace bad_each_way_finder.Services
                 throw new LoginServiceException(ex, $"{ex.Message} - Register() failed.");
             }
         }
+        public async Task Logout(string token)
+        {
+            try
+            {
+                await _httpClient.GetAsync($"/api/Identity/Logout/{token}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception raised, Logout failed.");
+                throw new ApiServiceException(ex, $"{ex.Message} - Logout() failed.");
+            }
+        }
+
 
         private async Task<HttpResponseMessage> PostAsync(string endpoint, object body)
         {

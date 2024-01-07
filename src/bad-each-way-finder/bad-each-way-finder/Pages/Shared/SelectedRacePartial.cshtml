@@ -4,85 +4,90 @@
     var selectedRace = Model.SelectedRace;
 }
 <div id="selected-race">
-@if (selectedRace != null && selectedRace.EventDateTime != default)
-{
-
-        <div class="row border border-dark rounded p-3 mb-3 bg-green-bright">
-            <div class="col-12">
-                <h6 class="font-lg">
-                    @selectedRace.EventName @selectedRace.EventDateTime.ToString("HH:mm") @selectedRace.SportsbookNumberOfPlaces
-                    1/@selectedRace.SportsbookPlaceFractionDenominator
-                </h6>
-            </div>
-        </div>
-        <div class="row border border-dark rounded bg-blue-neutral p-1 mb-1 text-black text-center">
-            <div class="col-3 text-start ps-4">
-                RunnerName
-            </div>
-            <div class="col-1">
-                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Sportsbook Win Price">Sbk Win</span>
-            </div>
-            <div class="col-1">
-                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Exchange Win Price with current pot">Exc Win</span>
-            </div>
-            <div class="col-1">
-                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Expected Value for the Win Market">Win EV</span>
-            </div>
-            <div class="col-1">
-                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Exchange Place Price with current pot">Exc Place</span>
-            </div>
-            <div class="col-1">
-                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Sportsbook Place Price">Sbk Place</span>
-            </div>
-            <div class="col-1">
-                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Expected Value for the Place Market">EV</span>
-            </div>
-        </div>
-
-        @foreach (var runner in selectedRace.Runners.OrderBy(r => r.WinRunnerOddsDecimal))
+    @if (!Model.ModelState.IsValid)
+    {
+        @if (Model.ModelState.ContainsKey("Exception Message"))
         {
-            <div class="row border border-dark rounded bg-mintcream p-1 mb-1 text-center font-md">
-                <div class="col-3 text-start font-lg">
-                    @runner.RunnerOrder -
-                    @runner.RunnerName
-
-                </div>
-                <div class="col-1">
-                    @runner.WinRunnerOddsDecimal.ToString("0.00")
-                </div>
-                <div class="col-1">
-                    @runner.ExchangeWinPrice.ToString("0.00")
-                    <p><small>€@runner.ExchangeWinSize.ToString("0.00")</small></p>
-                </div>
-                <div class="col-1">
-                    @{
-                        var textWinEv = runner.WinExpectedValue > 0 ? "text-success" : "text-danger";
-                    }
-                    <span class="@textWinEv">
-                        @runner.WinExpectedValue.ToString("0.000%")
-                    </span>
-                </div>
-                <div class="col-1">
-                    @runner.ExchangePlacePrice.ToString("0.00")
-                    <p><small>€@runner.ExchangePlaceSize.ToString("0.00")</small></p>
-                </div>
-                <div class="col-1">
-                    @runner.EachWayPlacePart.ToString("0.00")
-                </div>
-                <div class="col-1">
-                    @{
-                        var textEachWayEv = runner.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
-                    }
-                    <span class="@textEachWayEv">
-                        @runner.EachWayExpectedValue.ToString("0.000%")
-                    </span>
-                </div>
-                <div class="col-1">
+            @await Html.PartialAsync("ErrorPartial", @Model.ModelState["Exception Message"]!.Errors.First().ErrorMessage)
+        }
+    }
+else if (selectedRace != null && selectedRace.EventDateTime != default)
+{
+            <div class="row border border-dark rounded p-3 mb-3 bg-green-bright">
+                <div class="col-12">
+                    <h6 class="font-lg">
+                        @selectedRace.EventName @selectedRace.EventDateTime.ToString("HH:mm") @selectedRace.SportsbookNumberOfPlaces
+                        1/@selectedRace.SportsbookPlaceFractionDenominator
+                    </h6>
                 </div>
             </div>
-        }
+            <div class="row border border-dark rounded bg-blue-neutral p-1 mb-1 text-black text-center">
+                <div class="col-3 text-start ps-4">
+                    RunnerName
+                </div>
+                <div class="col-1">
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Sportsbook Win Price">Sbk Win</span>
+                </div>
+                <div class="col-1">
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Exchange Win Price with current pot">Exc Win</span>
+                </div>
+                <div class="col-1">
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Expected Value for the Win Market">Win EV</span>
+                </div>
+                <div class="col-1">
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Exchange Place Price with current pot">Exc Place</span>
+                </div>
+                <div class="col-1">
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Sportsbook Place Price">Sbk Place</span>
+                </div>
+                <div class="col-1">
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Expected Value for the Place Market">EV</span>
+                </div>
+            </div>
 
-}
+            @foreach (var runner in selectedRace.Runners.OrderBy(r => r.WinRunnerOddsDecimal))
+            {
+                <div class="row border border-dark rounded bg-mintcream p-1 mb-1 text-center font-md">
+                    <div class="col-3 text-start font-lg">
+                        @runner.RunnerOrder -
+                        @runner.RunnerName
+
+                    </div>
+                    <div class="col-1">
+                        @runner.WinRunnerOddsDecimal.ToString("0.00")
+                    </div>
+                    <div class="col-1">
+                        @runner.ExchangeWinPrice.ToString("0.00")
+                        <p><small>€@runner.ExchangeWinSize.ToString("0.00")</small></p>
+                    </div>
+                    <div class="col-1">
+                        @{
+                            var textWinEv = runner.WinExpectedValue > 0 ? "text-success" : "text-danger";
+                        }
+                        <span class="@textWinEv">
+                            @runner.WinExpectedValue.ToString("0.000%")
+                        </span>
+                    </div>
+                    <div class="col-1">
+                        @runner.ExchangePlacePrice.ToString("0.00")
+                        <p><small>€@runner.ExchangePlaceSize.ToString("0.00")</small></p>
+                    </div>
+                    <div class="col-1">
+                        @runner.EachWayPlacePart.ToString("0.00")
+                    </div>
+                    <div class="col-1">
+                        @{
+                            var textEachWayEv = runner.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
+                        }
+                        <span class="@textEachWayEv">
+                            @runner.EachWayExpectedValue.ToString("0.000%")
+                        </span>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+            }
+    }
 else
 {
     <div class="row border border-dark rounded bg-light p-3 mb-3">

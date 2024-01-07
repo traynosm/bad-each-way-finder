@@ -1,8 +1,10 @@
 using bad_each_way_finder.Interfaces;
 using bad_each_way_finder_domain.DomainModel;
+using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using System.Data;
 
 namespace bad_each_way_finder.Pages
@@ -19,25 +21,45 @@ namespace bad_each_way_finder.Pages
         {
             _apiService = apiService;
         }
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            await GetDto();
+            try
+            {
+                await GetDto();
+                return Page();
+            }
+            catch (ApiServiceException ex)
+            {
+                Console.WriteLine(ex.Message);
+                TempData["Exception"] = JsonConvert.SerializeObject(
+                    new Exception("Could not get GetRacesAndPropositionsDto()"));
+                return RedirectToPage("./Error");
+            }
         }
         public async Task<PartialViewResult> OnGetSelectedRace(string raceMeetingTime)
         {
-            await GetDto();
-            var splitVariable = raceMeetingTime.Split(" ~ ");
-            var races = Races.Where(p => p.EventName == splitVariable[0]);
-            var selectedRace = races.FirstOrDefault(p => p.EventDateTime.ToString("HH:mm") == splitVariable[1]);
-            if (selectedRace == null)
+            try
             {
-                SelectedRace = new Race();
+                await GetDto();
+                var splitVariable = raceMeetingTime.Split(" ~ ");
+                var races = Races.Where(p => p.EventName == splitVariable[0]);
+                var selectedRace = races.FirstOrDefault(p => p.EventDateTime.ToString("HH:mm") == splitVariable[1]);
+                if (selectedRace == null)
+                {
+                    SelectedRace = new Race();
+                }
+                else
+                {
+                    SelectedRace = selectedRace;
+                }
+                return PartialView("SelectedRacePartial", this);
             }
-            else
+            catch (ApiServiceException ex)
             {
-                SelectedRace = selectedRace;
+                ModelState.AddModelError("Exception Message", $"{ex.Message}");
+                Console.WriteLine(ex.Message);
+                return PartialView("SelectedRacePartial", this);
             }
-            return PartialView("SelectedRacePartial", this);
         }
 
         [NonAction]
@@ -55,9 +77,20 @@ namespace bad_each_way_finder.Pages
 
         public async Task GetDto()
         {
-            var Dto = await _apiService.GetRacesAndPropositionsDto();
+            try
+            {
+                var Dto = await _apiService.GetRacesAndPropositionsDto();
 
-            Races = Dto?.Races ?? new List<Race>();
+                Races = Dto?.Races ?? new List<Race>();
+            }
+            catch (ApiServiceException apiException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -15,16 +15,23 @@
     </div>
 
     <div id="live-propositions">
-        @if (Model.LivePropositions.Any())
+        @if (Model.LivePropositions.Any() && Model.ModelState.IsValid)
         {
             @await Html.PartialAsync("LivePropositionsPartial", Model)
+        }
+        else if (!Model.ModelState.IsValid)
+        {
+            @if(Model.ModelState.ContainsKey("Exception Message"))
+            {
+                @await Html.PartialAsync("ErrorPartial", @Model.ModelState["Exception Message"]!.Errors.First().ErrorMessage)
+            }
         }
     </div>
 
     <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
         <a class="text-dark" style="text-decoration: none;" data-bs-toggle="collapse" href="#account-collapse" role="button" aria-expanded="false" aria-controls="account-collapse">
             <span class="font-lg">
-                Today's Tracked Propositions
+                Your Tracked Propositions for Today' Racing'
                 <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Your Saved Propositions for Today's Racing">
                     <i class="fa-solid fa-circle-info"></i>
                 </span>
@@ -34,32 +41,45 @@
     </div>
     <div class="collapse" id="account-collapse">
     <div id="account-propositions">
-        @if (Model.AccountPropositions.Any())
+            @if (Model.AccountPropositions.Any() && Model.ModelState.IsValid)
         {
             ViewData["PropositionType"] = "Account";
             @await Html.PartialAsync("AccountPropositionsPartial", Model)
         }
-    </div>
+            else if (!Model.ModelState.IsValid)
+            {
+                @if (Model.ModelState.ContainsKey("Exception Message"))
+                {
+                    @await Html.PartialAsync("ErrorPartial", @Model.ModelState["Exception Message"]!.Errors.First().ErrorMessage)
+                }
+            }
+        </div>
     </div>
 
     <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
         <a class="text-dark" style="text-decoration: none;" data-bs-toggle="collapse" href="#raised-collapse" role="button" aria-expanded="false" aria-controls="raised-collapse">
             <span class="font-lg">
-                Today's System Raised Propositions
+                System Raised Propositions for Today's Racing
                 <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="All Raised Propositions for Today's Racing">
                     <i class="fa-solid fa-circle-info"></i>
                 </span>
-
             </span>
         </a>    
     </div>
     <div class="collapse" id="raised-collapse">
     <div id="raised-propositions">
-        @if (Model.RaisedPropositions.Any())
+            @if (Model.RaisedPropositions.Any() && Model.ModelState.IsValid)
         {
             ViewData["PropositionType"] = "Raised";
             @await Html.PartialAsync("RaisedPropositionsPartial", Model)
         }
+            else if (!Model.ModelState.IsValid)
+            {
+                @if (Model.ModelState.ContainsKey("Exception Message"))
+                {
+                    @await Html.PartialAsync("ErrorPartial", @Model.ModelState["Exception Message"]!.Errors.First().ErrorMessage)
+                }
+            }
     </div>
     </div>
 </div>
