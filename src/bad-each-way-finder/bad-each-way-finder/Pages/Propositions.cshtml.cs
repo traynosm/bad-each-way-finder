@@ -18,6 +18,10 @@ namespace bad_each_way_finder.Pages.Shared
         public List<Proposition> LivePropositions { get; set; }
         public List<Proposition> AccountPropositions { get; set; }
         public List<Proposition> RaisedPropositions { get; set; }
+        public List<Proposition> NewlyRaisedPropositions { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public PropositionsModel(IApiService apiService, ITokenService tokenService)
         {
@@ -27,6 +31,7 @@ namespace bad_each_way_finder.Pages.Shared
             LivePropositions = new List<Proposition>();
             AccountPropositions = new List<Proposition>();
             RaisedPropositions = new List<Proposition>();
+            NewlyRaisedPropositions = new List<Proposition>();
         }
 
         public async Task<IActionResult> OnGet()
@@ -52,6 +57,18 @@ namespace bad_each_way_finder.Pages.Shared
             {
                 var userName = HttpContext.User.Identity!.Name;
                 await GetDto(userName!);
+
+                StatusMessage = DateTime.Now.ToString();
+
+                //if (NewlyRaisedPropositions.Any())
+                //{
+                //    var msg = "";
+                //    foreach (var prop in NewlyRaisedPropositions)
+                //    {
+                //        msg += $"{prop.RunnerName} - {prop.WinRunnerOddsDecimal}; ";
+                //    }
+                //    StatusMessage = msg;
+                //}
 
                 return PartialView("PropositionsPartial", this);
             }
@@ -157,6 +174,7 @@ namespace bad_each_way_finder.Pages.Shared
                 var Dto = await _apiService.GetRacesAndPropositionsDto();
                 LivePropositions = Dto!.LivePropositions;
                 RaisedPropositions = Dto!.RaisedPropositions;
+                NewlyRaisedPropositions = Dto!.NewlyRaisedPropositions;
 
                 var accountPropositions = await _apiService.GetAccountPropositions(userName);
 

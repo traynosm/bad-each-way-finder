@@ -10,3 +10,13 @@
 <div>
     @await Html.PartialAsync("PropositionsPartial", Model)
 </div>
+
+<script>
+    $(document).ready(function () {
+        let msg = $('#StatusMessage').val();
+        if (msg.length > 0) {
+            swal.fire(msg);
+        }
+    });
+</script>
+

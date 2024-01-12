@@ -1,8 +1,9 @@
 ﻿@model bad_each_way_finder.Pages.Shared.PropositionsModel
 
+
 <div id="propositions">
-    <div class="row mt-2 mb-2 w-25 text-center">
-         <span id="last-updated-time" class="text-dark-magenta border border-dark rounded-1 bg-light-pink p-1">Last Updated - @DateTime.Now.ToString("HH:mm:ss")</span>
+    <div id="updated-time" class="row mt-2 mb-2 w-25 text-center">
+         <span id="last-updated-time" class="text-dark-magenta border border-dark rounded-1 bg-light-pink p-1">Last updated - @DateTime.Now.ToString("HH:mm:ss")</span>
     </div>
 
     <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
@@ -15,6 +16,9 @@
     </div>
 
     <div id="live-propositions">
+        <div id="status-div" class="d-none">
+            <input asp-for="StatusMessage" />
+        </div>
         @if (Model.LivePropositions.Any() && Model.ModelState.IsValid)
         {
             @await Html.PartialAsync("LivePropositionsPartial", Model)

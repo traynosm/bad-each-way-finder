@@ -21,7 +21,7 @@
         });
     }
 
-    let refreshRate = 5;
+    let refreshRate = 15;
     let myBoolean = false;
     let intervalId;
 
@@ -57,16 +57,28 @@
                 let live_propositions = parsedHtml.getElementById("live-propositions").innerHTML;
                 let account_propositions = parsedHtml.getElementById("account-propositions").innerHTML;
                 let raised_propositions = parsedHtml.getElementById("raised-propositions").innerHTML;
+                let status_message = parsedHtml.getElementById("StatusMessage").value;
+                let updated_time = parsedHtml.getElementById("updated-time").innerHTML;
 
                 $("#live-propositions").html('');
                 $("#account-propositions").html('');
                 $("#raised-propositions").html('');
+                $("#StatusMessage").val('');
+                $("#updated-time").html('');
+
 
                 $("#live-propositions").html(live_propositions);
                 $("#account-propositions").html(account_propositions);
                 $("#raised-propositions").html(raised_propositions);
+                $("#StatusMessage").val(status_message);
+                $("#updated-time").html(updated_time);
 
                 $("#last-updated-time").fadeOut(80).fadeIn(80).fadeOut(80).fadeIn(80);
+
+                let msg = $('#StatusMessage').val();
+                if (msg.length > 0) {
+                    swal.fire(msg);
+                }
             }
         });
     }
