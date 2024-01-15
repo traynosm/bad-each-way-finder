@@ -58,7 +58,14 @@ namespace bad_each_way_finder.Pages.Shared
                 var userName = HttpContext.User.Identity!.Name;
                 await GetDto(userName!);
 
-                StatusMessage = DateTime.Now.ToString();
+                //StatusMessage = DateTime.Now.ToString();
+                //if (DateTime.Now.Minute % 2 == 0)
+                //{ 
+                //    StatusMessage = "This is a string";
+                //}
+
+                StatusMessage = "This is a string";
+
 
                 //if (NewlyRaisedPropositions.Any())
                 //{

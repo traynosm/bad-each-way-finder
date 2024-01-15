@@ -342,3 +342,15 @@ footer {
         font-size: 14px;
         color: #878787;
     }
+.swal-class{
+    color: green;
+}
+#swal-loc{
+    position: absolute;
+    right: 100px;
+    top: 100px;
+}
+
+    #swal-loc .swal2-container {
+        position: inherit;
+    }

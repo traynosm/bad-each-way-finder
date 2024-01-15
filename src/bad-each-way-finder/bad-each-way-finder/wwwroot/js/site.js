@@ -77,8 +77,18 @@
 
                 let msg = $('#StatusMessage').val();
                 if (msg.length > 0) {
-                    swal.fire(msg);
+                    swal.fire({
+                        text: msg,
+                        target: document.getElementById('swal-loc'),
+                        timer: 3000,
+                        customClass: {
+                            text: 'swal-class'
+                        },
+                        html:
+                        `<div style="float: right;">words and words</div>`
+                    });
                 }
+                $('#StatusMessage').val('');
             }
         });
     }
