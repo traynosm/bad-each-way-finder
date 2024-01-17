@@ -1,7 +1,7 @@
 ﻿@using NonFactors.Mvc.Grid;
 @model IEnumerable<bad_each_way_finder_domain.DomainModel.Proposition>
 
-<div class="bg-light" style="font-size:10px;">
+<div class="bg-light mt-3" style="font-size:13px;">
     @(Html
         .Grid(Model)
         .Build(columns =>
@@ -57,11 +57,12 @@
         .Pageable(pager =>
         {
             pager.PagesToDisplay = 5;
-            pager.RowsPerPage = 10;
+            pager.RowsPerPage = 20;
         })
         .Filterable()
         .Sortable()
-        .Empty("No Data Found"))
+        .Empty("No Data Found")
+        .UsingFooter("./MvcGrid/_GridFooter"))
 </div>
 
 

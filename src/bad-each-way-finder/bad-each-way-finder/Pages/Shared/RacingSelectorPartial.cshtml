@@ -1,13 +1,13 @@
 ﻿@model bad_each_way_finder.Pages.RacesModel
 
-<div class="row border border-dark rounded bg-light p-3 mb-5 mt-5">
+<div class="row border border-dark rounded bg-prop-base-1 p-3 mb-5 mt-5">
     <div class="col-12">
         @foreach (var meeting in Model.Races.GroupBy(e => e.EventName))
         {
             <div class="row mb-1">
 
                 <div class="col-3">
-                    <span class="me-13 font-md">@meeting.Key</span>
+                    <span class="me-13 font-md text-prop-name">@meeting.Key</span>
                 </div>
 
                 <div class="col-9">

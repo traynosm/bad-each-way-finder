@@ -149,6 +149,20 @@ footer {
     padding: 20px;
 }
 
+.faq-question {
+    position: relative;
+    background-color: rgba(255,153,0,0.6);
+    color: #eeeeee;
+    border: solid 1px;
+    border-color: black;
+}
+.faq-answer {
+    position: relative;
+    background-color: rgba(167,188,185,0.8);
+    border: solid 1px;
+    border-color: black;
+}
+
 /*https://www.w3schools.com/howto/howto_css_loader.asp*/
 * {
     margin: 0;

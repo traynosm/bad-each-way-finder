@@ -21,7 +21,7 @@
         });
     }
 
-    let refreshRate = 15;
+    let refreshRate = 30;
     let myBoolean = false;
     let intervalId;
 
@@ -79,7 +79,7 @@
                       
                 if (msg.length > 0) {
                     let html = `<div class="text-start">`;
-                    html += `<div><h4>There are ${split_msg.length} new propositions</h4></div>`;
+                    html += `<div><h4>${split_msg.length} new proposition(s) found</h4></div>`;
 
                     for (let i = 0; i < split_msg.length; i++) {
                         html += `<div class="border border-dark rounded bg-dark-orange p-1 mb-1">${split_msg[i]}</div>`;
@@ -91,7 +91,7 @@
                             position: "top-end",
                             timer: 8000,
                             color: "#eeeeee",
-                            background: "#2b4353",
+                            background: "bg-prop-med",
                             confirmButtonColor: "#FF9900",
                             width: 700,
                             //customClass: {
@@ -114,8 +114,8 @@
                             },
                             html: html
                         });
+                    $('#StatusMessage').innerText = '';
                 }
-                $('#StatusMessage').innerText = '';
             }
         });
     }

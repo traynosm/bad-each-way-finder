@@ -1,0 +1,10 @@
+﻿@using NonFactors.Mvc.Grid;
+
+@model IGrid<bad_each_way_finder_domain.DomainModel.Proposition>
+
+<tr>
+    <td colspan="10"><b>Total Sales</b></td>
+    <td><b>@(Model.Rows.Sum(row => row.Model.EachWayExpectedValue).ToString("0.00%"))</b></td>
+    <td></td>
+    <td></td>
+</tr>

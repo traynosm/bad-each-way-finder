@@ -110,16 +110,16 @@
     opacity: 0.15;
 }
 
-.mvc-grid-sort span {
-    position: absolute;
-    font-weight: bold;
-    text-align: left;
-    font-size: 0.7em;
-    color: #adacac;
-    width: 33%;
-    right: 0;
-    top: 40%;
-}
+    .mvc-grid-sort span {
+        position: absolute;
+        font-weight: bold;
+        text-align: left;
+        font-size: 0.7em;
+        color: rgba(43,67,83,0.8);
+        width: 33%;
+        right: 0;
+        top: 40%;
+    }
 
 .mvc-grid-row-filters .filterable {
     padding: 0.25em;
@@ -201,7 +201,7 @@
     box-shadow: 0 6px 12px rgb(0 0 0 / 0.176);
     background-clip: padding-box;
     max-width: calc(100% - 2em);
-    background-color: #ffffff;
+    background-color: rgba(43,67,83,0.8);
     border: 1px solid #cccccc;
     border-radius: 4px;
     position: absolute;
