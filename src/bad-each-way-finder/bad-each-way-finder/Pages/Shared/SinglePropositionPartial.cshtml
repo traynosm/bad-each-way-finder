@@ -3,7 +3,7 @@
     var propositionType = ViewData["PropositionType"];
 }
 
-<div class="row border border-bottom border-dark rounded p-2 font-sm bg-dark-blue text-light mb-1">
+<div class="row border border-bottom border-dark rounded p-2 font-sm bg-dark-blue text-prop-name mb-1">
     <div class="col-1">
         @Model.RecordedAt
     </div>
@@ -17,7 +17,7 @@
         @Model.RunnerName
     </div>
     <div class="col-1">
-        <span class="text-cyan font-md">@Model.WinRunnerOddsNumerator/@Model.WinRunnerOddsDenominator</span>
+        <span class="text-lime font-md">@Model.WinRunnerOddsNumerator/@Model.WinRunnerOddsDenominator</span>
     </div>
     <div class="col-1">
         @Model.SportsbookNumberOfPlaces 1/@Model.SportsbookPlaceFractionDenominator

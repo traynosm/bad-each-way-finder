@@ -49,7 +49,7 @@
         $.get({
             url: '?handler=Propositions',
             beforeSend: function () {
-
+                $('#StatusMessage').innerText = '';
             },
             success: function (result) {
                 let parser = new DOMParser();
@@ -66,7 +66,6 @@
                 $("#StatusMessage").val('');
                 $("#updated-time").html('');
 
-
                 $("#live-propositions").html(live_propositions);
                 $("#account-propositions").html(account_propositions);
                 $("#raised-propositions").html(raised_propositions);
@@ -76,19 +75,47 @@
                 $("#last-updated-time").fadeOut(80).fadeIn(80).fadeOut(80).fadeIn(80);
 
                 let msg = $('#StatusMessage').val();
+                let split_msg = msg.split("~");
+                      
                 if (msg.length > 0) {
-                    swal.fire({
-                        text: msg,
-                        target: document.getElementById('swal-loc'),
-                        timer: 3000,
-                        customClass: {
-                            text: 'swal-class'
-                        },
-                        html:
-                        `<div style="float: right;">words and words</div>`
-                    });
+                    let html = `<div class="text-start">`;
+                    html += `<div><h4>There are ${split_msg.length} new propositions</h4></div>`;
+
+                    for (let i = 0; i < split_msg.length; i++) {
+                        html += `<div class="border border-dark rounded bg-dark-orange p-1 mb-1">${split_msg[i]}</div>`;
+                    }
+                    html += `</div>`;
+
+                        swal.fire({
+                            target: document.getElementById('swal-loc'),
+                            position: "top-end",
+                            timer: 8000,
+                            color: "#eeeeee",
+                            background: "#2b4353",
+                            confirmButtonColor: "#FF9900",
+                            width: 700,
+                            //customClass: {
+                            //    confirmButton: "btn btn-success",
+                            //    text: 'swal-class'
+                            //},
+                            showClass: {
+                                popup: `
+                              animate__animated
+                              animate__fadeInRight
+                              animate__wobble
+                            `
+                            },
+                            hideClass: {
+                                popup: `
+                              animate__animated
+                              animate__fadeOutTopRight
+                              animate__faster
+                            `
+                            },
+                            html: html
+                        });
                 }
-                $('#StatusMessage').val('');
+                $('#StatusMessage').innerText = '';
             }
         });
     }

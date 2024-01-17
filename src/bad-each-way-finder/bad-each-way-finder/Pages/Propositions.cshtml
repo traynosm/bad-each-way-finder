@@ -1,7 +1,9 @@
 ﻿@page
 @model bad_each_way_finder.Pages.Shared.PropositionsModel
 
-<div class="mb-3">
+@*<div id="swal-loc">Propositions div</div>*@
+
+<div class="mb-3 pt-3">
     <a href="/Propositions" class="btn btn-primary me-2">Refresh <i class="fa fa-refresh" aria-hidden="true"></i></a>
 
     <a class="btn btn-danger" id="refresh-auto-racing">Refresh Auto Off</a>
@@ -10,7 +12,6 @@
 <div>
     @await Html.PartialAsync("PropositionsPartial", Model)
 </div>
-<div id="swal-loc">Propositions div</div>
 
 <script>
     $(document).ready(function () {

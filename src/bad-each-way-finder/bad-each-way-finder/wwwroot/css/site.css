@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&family=Roboto+Slab:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&family=Roboto+Slab:wght@300&family=Ubuntu+Mono:wght@700&display=swap');
+@import 'animate.css';
 
 html {
-  font-size: 14px;
-
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -89,6 +89,27 @@ footer {
 .bg-dark-orange {
     background-color: #ff8c00;
 }
+.bg-prop-headers {
+    background-color: rgba(43,67,83,0.95);
+}
+.bg-prop-base {
+    background-color: rgba(217,230,242,0.2);
+}
+.bg-prop-base-1 {
+    background-color: rgba(43,67,83,0.8);
+}
+.bg-prop-base-2 {
+    background-color: rgba(167,188,185,0.8);
+}
+.bg-prop-med {
+    background-color: #004445;
+}
+
+
+
+.border-thick-lime {
+    border: solid 4px lime;
+}
 
 .font-sm {
     font-size: 12px;
@@ -116,6 +137,9 @@ footer {
 }
 .text-dark-magenta {
     color: #8b008b;
+}
+.text-prop-name {
+    color: #eeeeee;
 }
 .btn-xl{
     min-height:75px;
@@ -342,11 +366,11 @@ footer {
         font-size: 14px;
         color: #878787;
     }
-.swal-class{
+.swal-class {
+    font-family: 'Ubuntu Mono', sans-serif;
     color: green;
 }
 #swal-loc{
-    position: absolute;
     right: 100px;
     top: 100px;
 }
@@ -354,3 +378,8 @@ footer {
     #swal-loc .swal2-container {
         position: inherit;
     }
+
+.swal2-popup {
+    font-size: 1.3rem !important;
+    font-family: 'Ubuntu Mono', sans-serif;
+}

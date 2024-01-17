@@ -2,14 +2,14 @@
 
 
 <div id="propositions">
-    <div id="updated-time" class="row mt-2 mb-2 w-25 text-center">
-         <span id="last-updated-time" class="text-dark-magenta border border-dark rounded-1 bg-light-pink p-1">Last updated - @DateTime.Now.ToString("HH:mm:ss")</span>
+    <div id="updated-time" class="row mt-2 mb-2 w-25 text-center ms-2">
+         <span id="last-updated-time" class="text-dark border border-dark rounded-1 p-1 bg-light">Last updated - @DateTime.Now.ToString("HH:mm:ss")</span>
     </div>
 
-    <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
+    <div class="row bg-prop-headers p-3 rounded border border-dark mb-1 mt-3 text-prop-name">
         <span class="font-lg">
             Live Propositions
-            <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Propositions as they happen">
+            <span type="button" class="bg-prop-headers border border-0 text-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Propositions as they happen">
                 <i class="fa-solid fa-circle-info"></i>
             </span>
         </span>
@@ -32,11 +32,11 @@
         }
     </div>
 
-    <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
-        <a class="text-dark" style="text-decoration: none;" data-bs-toggle="collapse" href="#account-collapse" role="button" aria-expanded="false" aria-controls="account-collapse">
+    <div class="row bg-prop-headers p-3 rounded border border-dark mb-1 mt-3 text-prop-name">
+        <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#account-collapse" role="button" aria-expanded="false" aria-controls="account-collapse">
             <span class="font-lg">
                 Your Tracked Propositions for Today's Racing
-                <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Your Saved Propositions for Today's Racing">
+                <span type="button" class="bg-prop-headers border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Your Saved Propositions for Today's Racing">
                     <i class="fa-solid fa-circle-info"></i>
                 </span>
 
@@ -60,11 +60,11 @@
         </div>
     </div>
 
-    <div class="row bg-green-bright p-3 rounded border border-dark mb-1 mt-3">
-        <a class="text-dark" style="text-decoration: none;" data-bs-toggle="collapse" href="#raised-collapse" role="button" aria-expanded="false" aria-controls="raised-collapse">
+    <div class="row bg-prop-headers p-3 rounded border border-dark mb-1 mt-3 text-prop-name">
+        <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#raised-collapse" role="button" aria-expanded="false" aria-controls="raised-collapse">
             <span class="font-lg">
                 System Raised Propositions for Today's Racing
-                <span type="button" class="bg-green-bright border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="All Raised Propositions for Today's Racing">
+                <span type="button" class="bg-prop-headers border border-0" data-bs-toggle="tooltip" data-bs-placement="top" title="All Raised Propositions for Today's Racing">
                     <i class="fa-solid fa-circle-info"></i>
                 </span>
             </span>

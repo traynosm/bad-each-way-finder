@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace bad_each_way_finder.Pages.Shared
 {
@@ -64,18 +65,28 @@ namespace bad_each_way_finder.Pages.Shared
                 //    StatusMessage = "This is a string";
                 //}
 
-                StatusMessage = "This is a string";
+                //StatusMessage = "This is a string ; Second string";
 
 
-                //if (NewlyRaisedPropositions.Any())
-                //{
-                //    var msg = "";
-                //    foreach (var prop in NewlyRaisedPropositions)
-                //    {
-                //        msg += $"{prop.RunnerName} - {prop.WinRunnerOddsDecimal}; ";
-                //    }
-                //    StatusMessage = msg;
-                //}
+                if (NewlyRaisedPropositions.Any())
+                {
+                    var msg = string.Empty;
+                    foreach (var prop in NewlyRaisedPropositions)
+                    {
+                        msg += $"{prop.EventName} " +
+                            $" {prop.EventDateTime.ToString("HH:mm")} -" +
+                            $" {prop.RunnerName} " +
+                            $" {prop.WinRunnerOddsDecimal.ToString("0.00")} " +
+                            $" {prop.EachWayExpectedValue.ToString("0.00%")};";
+                    }
+
+                    var splitString = msg.Split(';');
+                    var withoutEmpties = splitString.Where(m => !string.IsNullOrEmpty(m));
+                    var statusMsg = String.Join("~", withoutEmpties);
+                    StatusMessage = statusMsg;
+
+
+                }
 
                 return PartialView("PropositionsPartial", this);
             }
