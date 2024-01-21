@@ -13,16 +13,16 @@
     }
 else if (selectedRace != null && selectedRace.EventDateTime != default)
 {
-        <div class="row border border-dark rounded p-3 mb-3 bg-prop-headers text-prop-name">
+        <div class="row border border-dark rounded p-3 mb-1 bg-prop-headers text-prop-name">
                 <div class="col-12">
-                    <h6 class="font-lg">
+                    <h6 class="font-md">
                         @selectedRace.EventName @selectedRace.EventDateTime.ToString("HH:mm") @selectedRace.SportsbookNumberOfPlaces
                         1/@selectedRace.SportsbookPlaceFractionDenominator
                     </h6>
                 </div>
             </div>
-        <div class="row border border-dark rounded bg-sub-header p-2 mb-1 text-black text-center">
-                <div class="col-3 text-start ps-4">
+        <div class="row border border-dark rounded bg-sub-header p-2 mb-1 text-black text-center font-sm">
+                <div class="col-4 text-start">
                     RunnerName
                 </div>
                 <div class="col-1">
@@ -41,41 +41,40 @@ else if (selectedRace != null && selectedRace.EventDateTime != default)
                     <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Sportsbook Place Price">Sbk Place</span>
                 </div>
                 <div class="col-1">
-                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Expected Value for the Place Market">EV</span>
+                    <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Expected Value for the Place Market">EW EV</span>
                 </div>
             </div>
 
             @foreach (var runner in selectedRace.Runners.OrderBy(r => r.WinRunnerOddsDecimal))
             {
-            <div class="row border border-bottom border-dark rounded p-2 font-md bg-dark-blue text-prop-name mb-1 text-center">
-                    <div class="col-3 text-start font-lg ps-4">
+            <div class="row runner-row border border-bottom border-dark rounded p-1 bg-dark-blue text-prop-name mb-1 text-center">
+                    <div class="col-4 text-start font-md p-0">
                         @runner.RunnerOrder -
                         @runner.RunnerName
-
                     </div>
-                    <div class="col-1 text-lime">
+                    <div class="col-1 text-lime p-0">
                         @runner.WinRunnerOddsDecimal.ToString("0.00")
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         @runner.ExchangeWinPrice.ToString("0.00")
                         <p><small>€@runner.ExchangeWinSize.ToString("0.00")</small></p>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         @{
                             var textWinEv = runner.WinExpectedValue > 0 ? "text-success" : "text-danger";
                         }
                         <span class="@textWinEv">
-                            @runner.WinExpectedValue.ToString("0.000%")
+                            @runner.WinExpectedValue.ToString("0.00%")
                         </span>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         @runner.ExchangePlacePrice.ToString("0.00")
                         <p><small>€@runner.ExchangePlaceSize.ToString("0.00")</small></p>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         @runner.EachWayPlacePart.ToString("0.00")
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         @{
                             var textEachWayEv = runner.EachWayExpectedValue > 0 ? "text-success" : "text-danger";
                         }

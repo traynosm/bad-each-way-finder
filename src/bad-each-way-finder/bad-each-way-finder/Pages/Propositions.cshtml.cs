@@ -33,6 +33,8 @@ namespace bad_each_way_finder.Pages.Shared
             AccountPropositions = new List<Proposition>();
             RaisedPropositions = new List<Proposition>();
             NewlyRaisedPropositions = new List<Proposition>();
+
+            StatusMessage = string.Empty;
         }
 
         public async Task<IActionResult> OnGet()

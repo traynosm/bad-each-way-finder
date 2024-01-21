@@ -4,43 +4,39 @@
 }
 
 <div class="row border border-bottom border-dark rounded p-2 font-sm bg-dark-blue text-prop-name mb-1">
-    <div class="col-1">
+    <div class="col-1 me-1 d-none d-md-block p-0">
         @Model.RecordedAt
     </div>
-    <div class="col-1 text-warning">
-        @Model.EventName
+    <div class="col-2 text-warning p-0">
+        @Model.EventName 
+        <span>@Model.EventDateTime.ToString("HH:mm")</span>
     </div>
-    <div class="col-1 text-warning">
-        @Model.EventDateTime.ToString("HH:mm")
-    </div>
-    <div class="col-2 font-md">
+    <div class="col-2 font-md p-0 me-3">
         @Model.RunnerName
-    </div>
-    <div class="col-1">
         <span class="text-lime font-md">@Model.WinRunnerOddsNumerator/@Model.WinRunnerOddsDenominator</span>
     </div>
-    <div class="col-1">
+    <div class="col-1 p-0">
         @Model.SportsbookNumberOfPlaces 1/@Model.SportsbookPlaceFractionDenominator
     </div>
-    <div class="col-2">
+    <div class="col-2 p-0">
         [<span class="text-pink"> @Model.ExchangeWinPrice.ToString("0.00") : </span>
         <span class="text-pink">@Model.ExchangePlacePrice.ToString("0.00") </span>]
             @{
                 var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-lime" : "text-danger";
             }
-        <span class="@textEachWayEv font-md">&nbsp;@Model.EachWayExpectedValue.ToString("0.000%")</span>
+        <span class="@textEachWayEv font-md">&nbsp;@Model.EachWayExpectedValue.ToString("0.00%")</span>
     </div>
 
-    <div class="col-2">
+    <div class="col-2 p-0">
         [<span class="text-pink"> @Model.LatestWinPrice.ToString("0.00") : </span>
         <span class="text-pink">@Model.LatestPlacePrice.ToString("0.00") </span>]
         @{
             var latestTextEachWayEv = Model.LatestEachWayExpectedValue > 0 ? "text-lime" : "text-danger";
         }
-        <span class="@latestTextEachWayEv font-md">&nbsp;@Model.LatestEachWayExpectedValue.ToString("0.000%")</span>
+        <span class="@latestTextEachWayEv font-md">&nbsp;@Model.LatestEachWayExpectedValue.ToString("0.00%")</span>
     </div>
 
-    <div class="col-1 ps-5">
+    <div class="col-1 ps-1">
         <form id="proposition-form" method="post">
             <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
             <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal"/>

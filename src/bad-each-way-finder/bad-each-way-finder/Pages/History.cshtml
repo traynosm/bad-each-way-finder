@@ -2,5 +2,13 @@
 @using NonFactors.Mvc.Grid;
 @model bad_each_way_finder.Pages.HistoryModel
 
-@await Html.PartialAsync("HistoryTablePartial", Model.Propositions);
+<div class="d-block d-sm-none bg-light text-dark p-3 m-5">
+    Your History is only available on larger devices. 
+</div>
+
+<div class="d-none d-sm-block">
+    @await Html.PartialAsync("HistoryTablePartial", Model.Propositions);
+</div>
+
+
 

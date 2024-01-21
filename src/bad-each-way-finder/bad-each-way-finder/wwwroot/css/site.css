@@ -40,6 +40,22 @@ header {
     font-family: 'Ubuntu Mono', sans-serif;
 }
 
+#welcome-main-header {
+    font-size: 130px;
+}
+
+#welcome-sub-header {
+    font-size: 70px;
+}
+
+.welcome-text-color {
+    color: #FF9900;
+}
+
+.runner-row {
+   font-size: 16px;
+}
+
 body::after {
     content: '';
     display: block;
@@ -167,6 +183,10 @@ footer {
 * {
     margin: 0;
     padding: 0;
+}
+
+#updated-time {
+    width: 25%;
 }
 
 .loader {
@@ -396,4 +416,49 @@ footer {
 .swal2-popup {
     font-size: 1.3rem !important;
     font-family: 'Ubuntu Mono', sans-serif;
+}
+
+/*if larger that tablet*/
+@media only screen and (min-width: 768px) {
+    .simple-prop-row {
+        width: 50%;
+    }
+}
+
+/*if smaller that tablet*/
+@media only screen and (max-width: 768px) {
+    #welcome-main-header {
+        font-size: 100px;
+    }
+
+    #welcome-sub-header {
+        font-size: 50px;
+    }
+}
+
+/*if mobile*/
+@media only screen and (max-width: 431px) {
+    .font-md {
+        font-size: 11px;
+    }
+
+    .font-sm {
+        font-size: 8px;
+    }
+
+    #welcome-main-header {
+        font-size: 50px;
+    }
+
+    #welcome-sub-header {
+        font-size: 25px;
+    }
+
+    .runner-row {
+        font-size: 10px;
+    }
+
+    #updated-time {
+        width: 50%;
+    }
 }
