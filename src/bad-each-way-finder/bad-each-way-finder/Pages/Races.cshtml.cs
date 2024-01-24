@@ -1,4 +1,5 @@
 using bad_each_way_finder.Interfaces;
+using bad_each_way_finder.Services;
 using bad_each_way_finder_domain.DomainModel;
 using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
@@ -16,21 +17,43 @@ namespace bad_each_way_finder.Pages
         public Race SelectedRace { get; set; }
 
         private readonly IApiService _apiService;
+        private readonly ILoginService _loginService;
+        private readonly ITokenService _tokenService;
 
-        public RacesModel(IApiService apiService)
+        public RacesModel(IApiService apiService, ILoginService loginService,
+            ITokenService tokenService)
         {
             _apiService = apiService;
+            _loginService = loginService;
+            _tokenService = tokenService;
         }
         public async Task<IActionResult> OnGet()
         {
             try
             {
                 await GetDto();
+
+                var token = _tokenService.JwtToken;
+                var tokenValidation = _tokenService.ValidateToken();
+
+                if (!tokenValidation)
+                {
+                    await _loginService.Logout(token);
+                    return Redirect("Identity/Account/Logout");
+                }
+
                 return Page();
+
             }
             catch (ApiServiceException ex)
             {
                 Console.WriteLine(ex.Message);
+
+                if (ex.Message.Contains("Invalid Token"))
+                {
+                    return Redirect("Identity/Account/Logout");
+                }
+
                 TempData["Exception"] = JsonConvert.SerializeObject(
                     new Exception("Could not get GetRacesAndPropositionsDto()"));
                 return RedirectToPage("./Error");

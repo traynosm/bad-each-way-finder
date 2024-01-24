@@ -30,10 +30,20 @@ namespace bad_each_way_finder.Services
             {
                 var token = _tokenService.JwtToken;
 
+                if (string.IsNullOrEmpty(token))
+                {
+                    throw new InvalidDataException($"Invalid Token.");
+                }
+
                 var result = await _httpClient.GetFromJsonAsync<RacesAndPropositionsDto?>(
-                   $"/api/Proposition?token={token}");
+                   $"/api/v1/Proposition?token={token}");
 
                 return result;
+            }
+            catch (InvalidDataException ivdEx)
+            {
+                Console.WriteLine("InvalidDataException raised, GetRacesAndPropositionsDto failed.");
+                throw new ApiServiceException(ivdEx, $"{ivdEx.Message} - GetRacesAndPropositionsDto() failed.");
             }
             catch (Exception ex)
             {
@@ -47,10 +57,21 @@ namespace bad_each_way_finder.Services
             try
             {
                 var token = _tokenService.JwtToken;
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    throw new InvalidDataException($"Invalid Token.");
+                }
+
                 var result = await _httpClient.GetFromJsonAsync<List<Proposition>?>(
-                    $"/api/Account/GetAccountPropositions/{userName}/{token}");
+                    $"/api/v1/Account/GetAccountPropositions/{userName}/{token}");
 
                 return result;
+            }
+            catch (InvalidDataException ivdEx)
+            {
+                Console.WriteLine("InvalidDataException raised, GetAccountPropositions failed.");
+                throw new ApiServiceException(ivdEx, $"{ivdEx.Message} - GetAccountPropositions() failed.");
             }
             catch (Exception ex)
             {
@@ -70,7 +91,7 @@ namespace bad_each_way_finder.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync($"/api/Account/PostRaisedProposition", content);
+                var response = await _httpClient.PostAsync($"/api/v1/Account/PostRaisedProposition", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -101,7 +122,7 @@ namespace bad_each_way_finder.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync($"/api/Account/RemoveAccountProposition", content);
+                var response = await _httpClient.PostAsync($"/api/v1/Account/RemoveAccountProposition", content);
 
                 if (!response.IsSuccessStatusCode)
                 {

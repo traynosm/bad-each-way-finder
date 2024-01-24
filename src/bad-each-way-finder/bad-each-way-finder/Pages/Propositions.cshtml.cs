@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using NuGet.Common;
 using System.Collections.Generic;
 
 namespace bad_each_way_finder.Pages.Shared
@@ -15,6 +16,7 @@ namespace bad_each_way_finder.Pages.Shared
     {
         private readonly IApiService _apiService;
         private readonly ITokenService _tokenService;
+        private readonly ILoginService _loginService;
 
         public List<Proposition> LivePropositions { get; set; }
         public List<Proposition> AccountPropositions { get; set; }
@@ -24,10 +26,12 @@ namespace bad_each_way_finder.Pages.Shared
         [TempData]
         public string StatusMessage { get; set; }
 
-        public PropositionsModel(IApiService apiService, ITokenService tokenService)
+        public PropositionsModel(IApiService apiService, ITokenService tokenService,
+            ILoginService loginService)
         {
             _apiService = apiService;
             _tokenService = tokenService;
+            _loginService = loginService;
 
             LivePropositions = new List<Proposition>();
             AccountPropositions = new List<Proposition>();
@@ -44,13 +48,29 @@ namespace bad_each_way_finder.Pages.Shared
                 var userName = HttpContext.User.Identity!.Name;
                 await GetDto(userName!);
 
+                var token = _tokenService.JwtToken;
+                var tokenValidation = _tokenService.ValidateToken();        
+
+                if(!tokenValidation)
+                {
+                    await _loginService.Logout(token);
+                    return Redirect("Identity/Account/Logout");
+                }
+
                 return Page();
             }
             catch (ApiServiceException ex)
             {
                 Console.WriteLine(ex.Message);
+
+                if (ex.Message.Contains("Invalid Token"))
+                {
+                    return Redirect("Identity/Account/Logout");
+                }
+
                 TempData["Exception"] = JsonConvert.SerializeObject(
                     new Exception("Could not get GetRacesAndPropositionsDto()"));
+
                 return RedirectToPage("./Error");
             }
         }
@@ -192,6 +212,7 @@ namespace bad_each_way_finder.Pages.Shared
             try
             {
                 var Dto = await _apiService.GetRacesAndPropositionsDto();
+
                 LivePropositions = Dto!.LivePropositions;
                 RaisedPropositions = Dto!.RaisedPropositions;
                 NewlyRaisedPropositions = Dto!.NewlyRaisedPropositions;

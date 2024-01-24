@@ -121,7 +121,7 @@ namespace bad_each_way_finder.Services
         {
             try
             {
-                await _httpClient.GetAsync($"/api/Identity/Logout/{token}");
+                await _httpClient.GetAsync($"/api/v1/Identity/Logout/{token}");
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace bad_each_way_finder.Services
         {
             try
             {
-                return await _httpClient.PostAsync($"/api/identity/{endpoint}", WithContent(body));
+                return await _httpClient.PostAsync($"/api/v1/identity/{endpoint}", WithContent(body));
             }
             catch
             {

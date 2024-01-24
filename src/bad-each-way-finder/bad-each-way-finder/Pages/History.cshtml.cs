@@ -51,6 +51,12 @@ namespace bad_each_way_finder.Pages
             catch (ApiServiceException ex)
             {
                 Console.WriteLine(ex.Message);
+
+                if (ex.Message.Contains("Invalid Token"))
+                {
+                    return Redirect("Identity/Account/Logout");
+                }
+
                 TempData["Exception"] = JsonConvert.SerializeObject(
                     new Exception("Could not GetAccountPropositions()"));
                 return RedirectToPage("./Error");
