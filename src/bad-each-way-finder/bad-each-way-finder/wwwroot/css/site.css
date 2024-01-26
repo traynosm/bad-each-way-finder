@@ -61,6 +61,7 @@ body::after {
     display: block;
     height: 150px;
 }
+
 footer {
     font-family: 'Ubuntu Mono', sans-serif;
     position: absolute;
@@ -70,11 +71,12 @@ footer {
     background-color: rgba(0,0,0, 0.9);
     text-align: center;
 }
+
+/*Backgrounds*/
 .site-bg {
     background-image: url("../../images/black-and-white-ground-shot.jpg");
     background-size: cover;
-/*    background-repeat: no-repeat;
-*/}
+}
 .bg-mintcream {
     background-color: #F5FFFA;
 }
@@ -121,12 +123,12 @@ footer {
     background-color: #004445;
 }
 
-
-
+/*Borders*/
 .border-thick-lime {
     border: solid 4px lime;
 }
 
+/*fonts&texts*/
 .font-sm {
     font-size: 12px;
     font-weight: normal;
@@ -157,6 +159,8 @@ footer {
 .text-prop-name {
     color: #eeeeee;
 }
+
+/*buttons*/
 .btn-xl{
     min-height:75px;
     min-width: 150px;
@@ -165,6 +169,7 @@ footer {
     padding: 20px;
 }
 
+/*FAQ page*/
 .faq-question {
     position: relative;
     background-color: rgba(255,153,0,0.6);
@@ -400,10 +405,7 @@ footer {
         font-size: 14px;
         color: #878787;
     }
-.swal-class {
-    font-family: 'Ubuntu Mono', sans-serif;
-    color: green;
-}
+
 #swal-loc{
     right: 100px;
     top: 100px;

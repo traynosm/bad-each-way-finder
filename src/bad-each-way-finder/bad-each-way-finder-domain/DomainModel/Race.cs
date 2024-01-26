@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace bad_each_way_finder_domain.DomainModel
+﻿namespace bad_each_way_finder_domain.DomainModel
 {
     public class Race
     {

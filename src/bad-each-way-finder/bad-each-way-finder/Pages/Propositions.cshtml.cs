@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using NuGet.Common;
-using System.Collections.Generic;
 
 namespace bad_each_way_finder.Pages.Shared
 {
@@ -81,15 +79,6 @@ namespace bad_each_way_finder.Pages.Shared
                 var userName = HttpContext.User.Identity!.Name;
                 await GetDto(userName!);
 
-                //StatusMessage = DateTime.Now.ToString();
-                //if (DateTime.Now.Minute % 2 == 0)
-                //{ 
-                //    StatusMessage = "This is a string";
-                //}
-
-                //StatusMessage = "This is a string ; Second string";
-
-
                 if (NewlyRaisedPropositions.Any())
                 {
                     var msg = string.Empty;
@@ -106,8 +95,6 @@ namespace bad_each_way_finder.Pages.Shared
                     var withoutEmpties = splitString.Where(m => !string.IsNullOrEmpty(m));
                     var statusMsg = String.Join("~", withoutEmpties);
                     StatusMessage = statusMsg;
-
-
                 }
 
                 return PartialView("PropositionsPartial", this);
@@ -234,6 +221,5 @@ namespace bad_each_way_finder.Pages.Shared
                 throw;
             }
         }
-
     }
 }

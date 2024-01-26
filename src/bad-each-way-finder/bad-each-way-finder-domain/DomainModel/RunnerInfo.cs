@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace bad_each_way_finder_domain.DomainModel
 {
-        public class RunnerInfo
-        {
+    public class RunnerInfo
+    {
         public string Id { get; set; }
         public long RunnerSelectionId { get; set; }
         public string RunnerName { get; set; }
@@ -26,8 +26,6 @@ namespace bad_each_way_finder_domain.DomainModel
         public double EachWayExpectedValue { get; set; }
         public string RunnerStatus { get; set; }
 
-
         public RunnerInfo() { }
-        }
+    }
 }
-

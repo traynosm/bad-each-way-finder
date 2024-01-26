@@ -79,7 +79,7 @@
                       
                 if (msg.length > 0) {
                     let html = `<div class="text-start">`;
-                    html += `<div><h4>${split_msg.length} new proposition(s) found</h4></div>`;
+                    html += `<div><h4 class="text-dark">${split_msg.length} new proposition(s) found</h4></div>`;
 
                     for (let i = 0; i < split_msg.length; i++) {
                         html += `<div class="border border-dark rounded bg-dark-orange p-1 mb-1">${split_msg[i]}</div>`;
@@ -94,10 +94,6 @@
                             background: "bg-prop-med",
                             confirmButtonColor: "#FF9900",
                             width: 700,
-                            //customClass: {
-                            //    confirmButton: "btn btn-success",
-                            //    text: 'swal-class'
-                            //},
                             showClass: {
                                 popup: `
                               animate__animated

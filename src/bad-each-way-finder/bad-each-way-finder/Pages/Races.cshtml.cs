@@ -1,5 +1,4 @@
 using bad_each_way_finder.Interfaces;
-using bad_each_way_finder.Services;
 using bad_each_way_finder_domain.DomainModel;
 using bad_each_way_finder_domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
