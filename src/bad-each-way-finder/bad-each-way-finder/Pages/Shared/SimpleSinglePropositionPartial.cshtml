@@ -1,0 +1,29 @@
+﻿@model bad_each_way_finder_domain.DomainModel.Proposition
+
+@{
+    var backgroundEachWayEv = Model.EachWayExpectedValue > 0 ? "bg-success" : "bg-prop-med";
+    var borderSuccess = Model.EachWayExpectedValue > 0 ? "border-thick-lime" : "border border-dark";
+}
+
+<div class="row simple-prop-row @backgroundEachWayEv @borderSuccess text-prop-name m-1 p-1 rounded">
+    <div class="col-4 font-md">
+        @Model.RunnerName
+    </div>
+    <div class="col-1 p-0">
+        <span class="text-lime">@Model.WinRunnerOddsNumerator/@Model.WinRunnerOddsDenominator</span>
+    </div>
+    <div class="col-4 text-center">
+        <span class="text-pink"> @Model.ExchangeWinPrice.ToString("0.00") : </span>
+        <span class="text-pink">@Model.ExchangePlacePrice.ToString("0.00") </span>
+    </div>
+    <div class="col-1 p-0">
+        <span class="text-lime">@Model.EachWayPlacePart.ToString("0.00")</span>
+    </div>
+    <div class="col-1">
+        @{
+            var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-light" : "text-prop-name";
+        }
+        <span class="@textEachWayEv">@Model.EachWayExpectedValue.ToString("0.00%")</span>
+    </div>
+</div>
+

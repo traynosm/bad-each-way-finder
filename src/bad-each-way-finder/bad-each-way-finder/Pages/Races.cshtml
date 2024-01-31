@@ -1,0 +1,9 @@
+﻿@page
+@model bad_each_way_finder.Pages.RacesModel
+
+@*racing selctor partial view*@
+@await Html.PartialAsync("RacingSelectorPartial", Model)
+
+
+@*display race*@
+@await Html.PartialAsync("SelectedRacePartial", Model)

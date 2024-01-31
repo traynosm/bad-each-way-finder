@@ -1,0 +1,60 @@
+﻿@model bad_each_way_finder_domain.DomainModel.Proposition
+@{
+    var propositionType = ViewData["PropositionType"];
+}
+
+<div class="row border border-bottom border-dark rounded p-2 font-sm bg-dark-blue text-prop-name mb-1">
+    <div class="col-1 me-1 d-none d-md-block p-0">
+        @Model.RecordedAt
+    </div>
+    <div class="col-2 text-warning p-0">
+        @Model.EventName 
+        <span>@Model.EventDateTime.ToString("HH:mm")</span>
+    </div>
+    <div class="col-2 font-md p-0 me-3">
+        @Model.RunnerName
+        <span class="text-lime font-md">@Model.WinRunnerOddsNumerator/@Model.WinRunnerOddsDenominator</span>
+    </div>
+    <div class="col-1 p-0">
+        @Model.SportsbookNumberOfPlaces 1/@Model.SportsbookPlaceFractionDenominator
+    </div>
+    <div class="col-2 p-0">
+        [<span class="text-pink"> @Model.ExchangeWinPrice.ToString("0.00") : </span>
+        <span class="text-pink">@Model.ExchangePlacePrice.ToString("0.00") </span>]
+            @{
+                var textEachWayEv = Model.EachWayExpectedValue > 0 ? "text-lime" : "text-danger";
+            }
+        <span class="@textEachWayEv font-md">&nbsp;@Model.EachWayExpectedValue.ToString("0.00%")</span>
+    </div>
+
+    <div class="col-2 p-0">
+        [<span class="text-pink"> @Model.LatestWinPrice.ToString("0.00") : </span>
+        <span class="text-pink">@Model.LatestPlacePrice.ToString("0.00") </span>]
+        @{
+            var latestTextEachWayEv = Model.LatestEachWayExpectedValue > 0 ? "text-lime" : "text-danger";
+        }
+        <span class="@latestTextEachWayEv font-md">&nbsp;@Model.LatestEachWayExpectedValue.ToString("0.00%")</span>
+    </div>
+
+    <div class="col-1 ps-1">
+        <form id="proposition-form" method="post">
+            <input type="hidden" id="runner-name" name="runner-name" value="@Model.RunnerName"/>
+            <input type="hidden" id="win-odds" name="win-odds" value="@Model.WinRunnerOddsDecimal"/>
+            <input type="hidden" id="event-id" name="event-id" value="@Model.EventId"/>
+            @if(propositionType == "Raised")
+            {
+                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to save and track this proposition">
+                    <button class="btn btn-sm btn-primary proposition-submit"><i class="fa-regular fa-floppy-disk"></i></button>
+                </span>
+
+            }
+            else
+            {
+                <span type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to remove this proposition(the propostion will not appear in your history)">
+                    <button class="btn btn-sm btn-danger proposition-remove"><i class="fa-solid fa-trash fa-fw"></i></button>
+                </span>
+            }
+        </form>
+    </div>
+</div>
+

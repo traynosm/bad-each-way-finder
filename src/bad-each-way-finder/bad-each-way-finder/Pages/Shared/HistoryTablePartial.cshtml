@@ -1,0 +1,68 @@
+﻿@using NonFactors.Mvc.Grid;
+@model IEnumerable<bad_each_way_finder_domain.DomainModel.Proposition>
+
+<div class="bg-light mt-3" style="font-size:13px;">
+    @(Html
+        .Grid(Model)
+        .Build(columns =>
+        {
+            columns.Add(m => m.RecordedAt).Titled("Recorded At")
+            .Formatted("{0:dd-MM-yyyy HH:mm}")
+            .Sortable(true)
+            .Filterable(GridFilterType.Multi);
+
+            columns.Add(m => m.EventName).Titled("Event Name")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.EventDateTime).Titled("Event Time")
+            .Formatted("{0:HH:mm}")
+            .Sortable(true)
+            .Filterable(GridFilterType.Multi);
+
+            columns.Add(m => m.RunnerName).Titled("Runner Name")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.FinalAdjustedOddsDecimal.ToString("0.00")).Titled("Final Odds Taken")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.SportsbookNumberOfPlaces).Titled("EW Terms")
+            .RenderedAs(m => $"{m.SportsbookNumberOfPlaces} 1/{m.SportsbookPlaceFractionDenominator}")
+            .Sortable(false)
+            .Filterable(false); ;
+
+            columns.Add(m => m.Rule4Deduction.ToString("0")).Titled("Rule 4")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.LatestWinPrice.ToString("0.00")).Titled("Final Exch Win Price")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.LatestWinExpectedValue.ToString("0.00%")).Titled("Final Win EV")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.LatestPlacePrice.ToString("0.00")).Titled("Final Exch Place Price")
+            .Sortable(true)
+            .Filterable(true);
+
+            columns.Add(m => m.LatestEachWayExpectedValue.ToString("0.00%")).Titled("Final EW EV")
+            .Sortable(true)
+            .Filterable(true);
+
+        })
+        .Pageable(pager =>
+        {
+            pager.PagesToDisplay = 5;
+            pager.RowsPerPage = 20;
+        })
+        .Filterable()
+        .Sortable()
+        .Empty("No Data Found")
+        .UsingFooter("./MvcGrid/_GridFooter"))
+</div>
+
+

@@ -1,6 +1,10 @@
+using bad_each_way_finder.Areas.Identity.Data;
+using bad_each_way_finder.Interfaces;
+using bad_each_way_finder.Services;
+using bad_each_way_finder.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using bad_each_way_finder.Areas.Identity.Data;
+
 namespace bad_each_way_finder
 {
     public class Program
@@ -15,12 +19,43 @@ namespace bad_each_way_finder
             builder.Services.AddDbContext<BadEachWayFinderContext>(options => 
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => 
-                options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+                options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BadEachWayFinderContext>();
+
+            builder.Services.AddHttpContextAccessor();
+
+            IdentityBuilder identityBuilder = builder.Services.AddIdentityCore<IdentityUser>();
+
+            identityBuilder = new IdentityBuilder(identityBuilder.UserType, builder.Services);
+
+            identityBuilder.AddEntityFrameworkStores<BadEachWayFinderContext>();
+
+            identityBuilder.AddSignInManager<SignInManager<IdentityUser>>();
+
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddHttpClient<IApiService, ApiService>();
+            builder.Services.AddHttpClient<ILoginService, LoginService>();
+            builder.Services.AddSingleton<ITokenService, TokenService>();
+
+
+            builder.Services.Configure<ApiSettings>(o =>
+                builder.Configuration.GetSection("ApiSettings").Bind(o));
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                //options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
 
             var app = builder.Build();
 

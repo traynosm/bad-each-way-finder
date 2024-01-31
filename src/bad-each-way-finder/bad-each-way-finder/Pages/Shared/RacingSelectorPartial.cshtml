@@ -1,0 +1,29 @@
+﻿@model bad_each_way_finder.Pages.RacesModel
+
+<div class="row border border-dark rounded bg-prop-base-1 p-3 mb-5 mt-5">
+    <div class="col-12">
+        @foreach (var meeting in Model.Races.GroupBy(e => e.EventName))
+        {
+            <div class="row mb-3">
+
+                <div class="col-3">
+                    <span class="me-13 font-md text-prop-name">@meeting.Key</span>
+                </div>
+
+                <div class="col-9">
+                    @foreach (var race in meeting)
+                    {
+                        <span class="me-1">
+                            <span class="d-none">@meeting.Key</span>
+                            <a class="btn btn-sm btn-warning select-race m-1" style="width: 60px;">@race.EventDateTime.ToString("HH:mm")</a>
+                        </span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="loader">
+    <div class="loading"></div>
+</div>
+

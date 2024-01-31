@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&family=Roboto+Slab:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Inter:wght@100;400;600;700&family=Roboto+Slab:wght@300&family=Ubuntu+Mono:wght@700&display=swap');
+@import 'animate.css';
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -13,10 +18,449 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    position: relative;
+    font-family: 'Roboto Slab', sans-serif;
+}
+header {
+    font-family: 'Ubuntu Mono', sans-serif;
+    background-color: rgba(0,0,0, 0.9);
+    color: white;
+    min-height: 80px;
+}
+
+#welcome-page {
+    font-family: 'Ubuntu Mono', sans-serif;
+}
+
+#welcome-main-header {
+    font-size: 130px;
+}
+
+#welcome-sub-header {
+    font-size: 70px;
+}
+
+.welcome-text-color {
+    color: #FF9900;
+}
+
+.runner-row {
+   font-size: 16px;
+}
+
+body::after {
+    content: '';
+    display: block;
+    height: 150px;
+}
+
+footer {
+    font-family: 'Ubuntu Mono', sans-serif;
+    position: absolute;
+    right: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: rgba(0,0,0, 0.9);
+    text-align: center;
+}
+
+/*Backgrounds*/
+.site-bg {
+    background-image: url("../../images/black-and-white-ground-shot.jpg");
+    background-size: cover;
+}
+.bg-mintcream {
+    background-color: #F5FFFA;
+}
+.bg-blue-neutral {
+    background-color: #a2b9bc;
+}
+.bg-green-bright {
+    background-color: #80ced6;
+}
+.bg-dark-blue {
+    background-color: #204060;
+}
+.bg-light-blue {
+    background-color: #d9e6f2;
+}
+.bg-purple {
+    background-color: #4d4dff;
+}
+.bg-lighter-blue {
+    background-color: #e6faff;
+}
+.bg-sub-header {
+    background-color: #5e678c;
+}
+.bg-light-pink {
+    background-color: #ffb6c1;
+}
+.bg-dark-orange {
+    background-color: #ff8c00;
+}
+.bg-prop-headers {
+    background-color: rgba(43,67,83,0.95);
+}
+.bg-prop-base {
+    background-color: rgba(217,230,242,0.2);
+}
+.bg-prop-base-1 {
+    background-color: rgba(43,67,83,0.8);
+}
+.bg-prop-base-2 {
+    background-color: rgba(167,188,185,0.8);
+}
+.bg-prop-med {
+    background-color: #004445;
+}
+
+/*Borders*/
+.border-thick-lime {
+    border: solid 4px lime;
+}
+
+/*fonts&texts*/
+.font-sm {
+    font-size: 12px;
+    font-weight: normal;
+}
+.font-lg{
+    font-size: 20px;
+    font-weight: bolder;
+}
+.font-md{
+    font-size: 16px;
+    font-weight: bold;
+}
+.text-pink {
+    color: pink;
+}
+.text-lime {
+    color: lime;
+}
+.text-cyan {
+    color: #00ffff;
+}
+.text-hot-pink {
+    color: #ff69b4;
+}
+.text-dark-magenta {
+    color: #8b008b;
+}
+.text-prop-name {
+    color: #eeeeee;
+}
+
+/*buttons*/
+.btn-xl{
+    min-height:75px;
+    min-width: 150px;
+    font-size:2rem;
+    text-align: center;
+    padding: 20px;
+}
+
+/*FAQ page*/
+.faq-question {
+    position: relative;
+    background-color: rgba(255,153,0,0.6);
+    color: #eeeeee;
+    border: solid 1px;
+    border-color: black;
+}
+.faq-answer {
+    position: relative;
+    background-color: rgba(167,188,185,0.8);
+    border: solid 1px;
+    border-color: black;
+}
+
+/*https://www.w3schools.com/howto/howto_css_loader.asp*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#updated-time {
+    width: 25%;
+}
+
+.loader {
+    display: none;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.loading {
+    border: 10px solid #ccc;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border-top-color: #e7ab3c;
+    border-left-color: #e7ab3c;
+    animation: spin 1s infinite ease-in;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*footer*/
+.footer-cta {
+    border-bottom: 1px solid #373636;
+}
+
+.single-cta i {
+    color: #FF9900;
+    font-size: 30px;
+    float: left;
+    margin-top: 8px;
+}
+
+.cta-text {
+    padding-left: 15px;
+    display: inline-block;
+}
+
+    .cta-text h4 {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .cta-text span {
+        color: #FF9900;
+        font-size: 15px;
+    }
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-pattern img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 330px;
+    background-size: cover;
+    background-position: 100% 100%;
+}
+
+.footer-logo {
+    margin-bottom: 30px;
+}
+
+    .footer-logo img {
+        max-width: 200px;
+    }
+
+.footer-text p {
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #7e7e7e;
+    line-height: 28px;
+}
+
+.footer-social-icon span {
+    color: #fff;
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+}
+
+.footer-social-icon a {
+    color: #fff;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.footer-social-icon i {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+}
+
+.facebook-bg {
+    background: #3B5998;
+}
+
+.twitter-bg {
+    background: #55ACEE;
+}
+
+.google-bg {
+    background: #DD4B39;
+}
+
+.footer-widget-heading h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+    .footer-widget-heading h3::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -15px;
+        height: 2px;
+        width: 50px;
+        background: #FF9900;
+    }
+
+.footer-widget ul li {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    margin-bottom: 12px;
+}
+
+    .footer-widget ul li a:hover {
+        color: #ff5e14;
+    }
+
+    .footer-widget ul li a {
+        color: #878787;
+        text-transform: capitalize;
+    }
+
+.subscribe-form {
+    position: relative;
+    overflow: hidden;
+}
+
+    .subscribe-form input {
+        width: 100%;
+        padding: 14px 28px;
+        background: #2E2E2E;
+        border: 1px solid #2E2E2E;
+        color: #fff;
+    }
+
+    .subscribe-form button {
+        position: absolute;
+        right: 0;
+        background: #ff5e14;
+        padding: 13px 20px;
+        border: 1px solid #ff5e14;
+        top: 0;
+    }
+
+        .subscribe-form button i {
+            color: #fff;
+            font-size: 22px;
+            transform: rotate(-6deg);
+        }
+
+.copyright-area {
+    background: #202020;
+    padding: 25px 0;
+}
+
+.copyright-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #878787;
+}
+
+    .copyright-text p a {
+        color: #ff5e14;
+    }
+
+.footer-menu li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+    .footer-menu li:hover a {
+        color: #ff5e14;
+    }
+
+    .footer-menu li a {
+        font-size: 14px;
+        color: #878787;
+    }
+
+#swal-loc{
+    right: 100px;
+    top: 100px;
+}
+
+    #swal-loc .swal2-container {
+        position: inherit;
+    }
+
+.swal2-popup {
+    font-size: 1.3rem !important;
+    font-family: 'Ubuntu Mono', sans-serif;
+}
+
+/*if larger that tablet*/
+@media only screen and (min-width: 768px) {
+    .simple-prop-row {
+        width: 50%;
+    }
+}
+
+/*if smaller that tablet*/
+@media only screen and (max-width: 768px) {
+    #welcome-main-header {
+        font-size: 100px;
+    }
+
+    #welcome-sub-header {
+        font-size: 50px;
+    }
+}
+
+/*if mobile*/
+@media only screen and (max-width: 431px) {
+    .font-md {
+        font-size: 11px;
+    }
+
+    .font-sm {
+        font-size: 8px;
+    }
+
+    #welcome-main-header {
+        font-size: 50px;
+    }
+
+    #welcome-sub-header {
+        font-size: 25px;
+    }
+
+    .runner-row {
+        font-size: 10px;
+    }
+
+    #updated-time {
+        width: 50%;
+    }
 }

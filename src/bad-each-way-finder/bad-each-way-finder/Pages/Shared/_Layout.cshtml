@@ -2,17 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <!--search engine optimistation(search engine bots)-->
+    <meta name="keywords" content="bad each way races, horse racing, betting, punter">
+    <meta name="description" content="Specialist bad each way race finder">
+    <!--search engine optimistation(social media bots)-->
+    <meta property="og:title" content="Bad Each Way Race Finder">
+    <meta property="og:image" content="~/images/black-and-white-ground-shot.jpg">
+    <meta proprty="og:type" content="website">
+    <meta property="og:description" content="Specialist bad each way race finder">
+    <!--favicon-->
+    <link rel="icon" type="image/x-icon" href="/images/favicon2.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - bad_each_way_finder</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/bad_each_way_finder.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/mvc-grid.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://kit.fontawesome.com/177a1325c3.js" crossorigin="anonymous"></script>
+
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<body class="site-bg">
+    <header class="border-bottom pt-2">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">bad_each_way_finder</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Bad Each Way Finder</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,10 +34,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-page="/Races">Races</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Propositions">Propositions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/History">History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Faq">FAQ</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -31,7 +54,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="min-height: 80vh;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -39,14 +62,100 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - bad_each_way_finder - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <div class="footer-cta pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-4 col-md-4 mb-30">
+                        <div class="single-cta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="cta-text">
+                                <h4>Find us</h4>
+                                <span>21 Main Street, Town, Co. Dublin, Ireland</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30">
+                        <div class="single-cta">
+                            <i class="fas fa-phone"></i>
+                            <div class="cta-text">
+                                <h4>Call us</h4>
+                                <span>081 23456789</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30">
+                        <div class="single-cta">
+                            <i class="far fa-envelope-open"></i>
+                            <div class="cta-text">
+                                <h4>Mail us</h4>
+                                <span>info@badeachwayracefinder.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-content pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-social-icon">
+                                <span>Follow us</span>
+                                <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                <a href="https://www.X.com" target="_blank"><i class="fab fa-twitter twitter-bg"></i></a>
+                                <a href="https://www.google.ie" target="_blank"><i class="fab fa-google-plus-g google-bg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 mb-30">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Useful Links</h3>
+                            </div>
+                            <ul>
+                                <li><a href="https://www.betfair.com/exchange/plus/en/horse-racing-betting-7" target="_blank">BetFair Exchange</a></li>
+                                <li><a href="https://www.paddypower.com/horse-racing" target="_blank">Paddy Power</a></li>
+                                <li><a href="https://www.betfair.com/sport/horse-racing" target="_blank">BetFair Sportsbook</a></li>
+                                <li><a href="https://www.gamblingcommission.gov.uk/authorities/guide/page/safeguarding-and-gambling" target="_blank">Gambling Commission</a></li>
+                                <li><a href="https://www.gamstop.co.uk/" target="_blank">GamStop</a></li>
+                                <li><a href="/Faq">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2023 - bad_each_way_finder -</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                        <div class="footer-menu">
+                            <ul>
+                                <li><a href="/Index">Home</a></li>
+                                <li><a href="/Races">Races</a></li>
+                                <li><a href="/Propositions">Propositions</a></li>
+                                <li><a href="/History">History</a></li>
+                                <li><a href="/Faq">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/js/mvc-grid.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js" ></script>
+    <script>
+        document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

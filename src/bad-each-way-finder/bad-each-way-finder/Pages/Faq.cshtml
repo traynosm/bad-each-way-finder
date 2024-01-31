@@ -1,0 +1,90 @@
+﻿@page
+@model bad_each_way_finder.Pages.FaqModel
+
+@*question 1*@
+<div>
+    <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#collapse-q1" role="button" aria-expanded="false" aria-controls="collapse-q1">
+        <h3 class="faq-question rounded mt-3 p-2">What is a bad each way race?</h3>
+    </a>
+</div>
+<div class="collapse" id="collapse-q1">
+    <p class="faq-answer rounded text-dark font-md p-2">A bad each way race is one where the bookmakers
+        are restricted to paying out based on fractions of the win odds in the each way market. 
+        A bad each way race is where there are one or more runners that have positive expected value
+        available to the punter. In other words, the odds (provided by the bookmaker) of the horse winning 
+        or placing are greater than the actual chance of the horse winning or placing. </p>
+</div>
+
+@*question 2*@
+<div>
+    <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#collapse-q2" role="button" aria-expanded="false" aria-controls="collapse-q2">
+        <h3 class="faq-question rounded mt-3 p-2">What is expected value?</h3>
+    </a>
+</div>
+<div class="collapse" id="collapse-q2">
+    <div class="faq-answer rounded text-dark font-md p-2">
+        The expected value calculation used is:
+        <p>EV = (Amount won per bet * probability of winning) – 
+            (Amount lost per bet * probability of losing)</p>
+    </div>
+</div>
+
+@*question 3*@
+<div>
+    <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#collapse-q3" role="button" aria-expanded="false" aria-controls="collapse-q3">
+        <h3 class="faq-question rounded mt-3 p-2">Where can I find the best current Propositions?</h3>
+    </a>
+</div>
+<div class="collapse" id="collapse-q3">
+    <div class="faq-answer rounded text-dark font-md p-2">
+        The best current propositions are displayed 
+        <a href="~/Propositions">here</a> within the <q>Live Propositions</q> Section.
+        <p>All propostions that are greater than -3% expected value are shown here.</p>
+        <p>Positive expected value are highlighted in bright green.</p>
+    </div>
+</div>
+
+@*question 4*@
+<div>
+    <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#collapse-q4" role="button" aria-expanded="false" aria-controls="collapse-q4">
+        <h3 class="faq-question rounded mt-3 p-2">What time range can I view propositions for?</h3>
+    </a>
+</div>
+<div class="collapse" id="collapse-q4">
+    <div class="faq-answer rounded text-dark font-md p-2">
+        Before 5pm, you can see propositions for today's UK & Ireland racing
+        <p>After 5pm, tomorrow's propositions will become available.</p>
+    </div>
+</div>
+
+@*question 5*@
+<div>
+    <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#collapse-q5" role="button" aria-expanded="false" aria-controls="collapse-q5">
+        <h3 class="faq-question rounded mt-3 p-2">What data is being used?</h3>
+    </a>
+</div>
+<div class="collapse" id="collapse-q5">
+    <div class="faq-answer rounded text-dark font-md p-2">
+        To calculate the expected value, the 
+        <a href="https://www.betfair.com/exchange/plus/en/horse-racing-betting-7" target="_blank">Betfair Exchange&trade;</a> 
+        prices are used as a proxy
+        for <q>true probability</q>, which is then compared with the 
+        <a href="https://www.betfair.com/sport/horse-racing" target="_blank">Betfair Sportbook&trade;</a> odds.
+    </div>
+</div>
+
+@*question 6*@
+<div>
+    <a class="text-prop-name" style="text-decoration: none;" data-bs-toggle="collapse" href="#collapse-q6" role="button" aria-expanded="false" aria-controls="collapse-q6">
+        <h3 class="faq-question rounded mt-3 p-2">How do I track the runners I am interested in?</h3>
+    </a>
+</div>
+<div class="collapse" id="collapse-q6">
+    <div class="faq-answer rounded text-dark font-md p-2">
+        You can track runners or propositions you are interested in <a href="~/Propositions">here</a> 
+        in the <q>Track a Propostion</q> section.
+        You can add propositions to the <q>Your Tracked Propositions for Today's Racing</q> 
+        section by clicking on the save button. These will be visible for the day and will be
+        available to see in your <a href="~/History">history.</a>
+    </div>
+</div>
