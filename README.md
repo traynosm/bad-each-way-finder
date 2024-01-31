@@ -20,4 +20,3 @@ Now run the bad-each-way-finder.
 The index page will load first. In order to view Races, Propositions and History page, the user must be logged in.
 
 A user can be registered by clicking on the register button on the index page. 
-
